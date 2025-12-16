@@ -16,11 +16,6 @@ internal static class TestExtensionsGenerator
             namespace Toarnbeike.Unions.TestExtensions;
 
             /// <summary>
-            /// Exception thrown when an assertion fails.
-            /// </summary>
-            public class AssertionFailedException(string message) : Exception(message);
-
-            /// <summary>
             /// Provides extension methods for testing Union types in unit tests.
             /// </summary>
             public static class TestExtensions
