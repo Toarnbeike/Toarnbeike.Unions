@@ -37,6 +37,7 @@ jobs:
         dotnet test \
           --configuration Release \
           --no-build \
+          -- \
           --report-trx \
           --results-directory TestResults
 
