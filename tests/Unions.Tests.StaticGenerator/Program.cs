@@ -49,6 +49,13 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Extensions/Switch/Generated/Switch{arity:D2}Tests.cs"), switchTests);
     }
 
+    Console.WriteLine("Generating switch extensions tests");
+    foreach (var arity in range)
+    {
+        var testExtensionsTests = TestExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"TestExtensions/Generated/TestExtensions{arity:D2}Tests.cs"), testExtensionsTests);
+    }
+
     Console.WriteLine("\nTest generation completed successfully.");
 
     return 0;
