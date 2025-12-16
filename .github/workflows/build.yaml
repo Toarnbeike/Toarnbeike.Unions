@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 env:
-  DOTNET_VERSION: '10.x'
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build:
@@ -32,5 +32,37 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run Tests
-        run: dotnet test --configuration Release --no-restore --no-build --verbosity normal
+      - name: Run tests with coverage
+        run: dotnet test --configuration Release --no-build --coverage --report-trx --results-directory ./TestResults
+
+      - name: Upload test results
+        if: always()  # Run even if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./TestResults/*.trx
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: ./TestResults/*.coverage
+  
+  publish-results:
+    name: Publish Test Results
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Download all test results
+      uses: actions/download-artifact@v4
+      with:
+        pattern: test-results-*
+        path: ./TestResults
+
+    - name: Publish test results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      with:
+        files: ./TestResults/**/*.trx
