@@ -32,14 +32,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Test
-      run: |
-        dotnet test tests/Unions.Tests/Unions.Tests.csproj \
-          --use-mtp \
-          --configuration Release \
-          --no-build \
-          -- \
-          --report-trx \
-          --results-directory TestResults
+      run: dotnet test --configuration Release --no-build --coverage --report-trx --results-directory ./TestResults
 
     - name: Upload test results
       if: always()
