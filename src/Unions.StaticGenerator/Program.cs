@@ -34,6 +34,10 @@ static int Generate(int upperBound)
     var switches = SwitchExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
 
+    Console.WriteLine("Generating partition extensions");
+    var partitions = PartitionExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Collections/PartitionExtensions.cs"), partitions);
+
     Console.WriteLine("Generating test extensions");
     var testHelpers = TestExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "TestExtensions/TestExtensions.cs"), testHelpers);

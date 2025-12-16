@@ -49,7 +49,14 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Extensions/Switch/Generated/Switch{arity:D2}Tests.cs"), switchTests);
     }
 
-    Console.WriteLine("Generating switch extensions tests");
+    Console.WriteLine("Generating partition collection extensions tests");
+    foreach (var arity in range)
+    {
+        var partitionTests = PartitionExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Collections/Partitions/Generated/Partition{arity:D2}Tests.cs"), partitionTests);
+    }
+
+    Console.WriteLine("Generating test helper extensions tests");
     foreach (var arity in range)
     {
         var testExtensionsTests = TestExtensionsTestsGenerator.Generate(arity);
