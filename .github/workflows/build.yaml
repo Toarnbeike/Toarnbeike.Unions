@@ -33,7 +33,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test \
+        dotnet test tests/Unions.Tests/Unions.Tests.csproj \
           --use-mtp \
           --configuration Release \
           --no-build \
