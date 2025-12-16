@@ -8,9 +8,13 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Unions.StaticGenerator/Unions.StaticGenerator.csproj" Id="61e9aaff-cffa-4b82-a677-1fb4bf9fd6c7" />
     <Project Path="src/Unions/Unions.csproj" />
   </Folder>
-  <Folder Name="/tests/" />
+  <Folder Name="/tests/">
+    <Project Path="tests/Unions.Tests.StaticGenerator/Unions.Tests.StaticGenerator.csproj" Id="2ac92359-786b-48f3-8518-aa67454d230b" />
+    <Project Path="tests/Unions.Tests/Unions.Tests.csproj" Id="e19f86df-f5ee-41b6-92fa-20f420a255a7" />
+  </Folder>
   <Folder Name="/workflows/">
     <File Path=".github/workflows/build.yaml" />
   </Folder>

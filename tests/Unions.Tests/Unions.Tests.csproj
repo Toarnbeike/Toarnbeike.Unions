@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Shouldly" />
+		<PackageReference Include="TUnit" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\src\Unions\Unions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Shouldly" />
+	</ItemGroup>
+	
+</Project>
