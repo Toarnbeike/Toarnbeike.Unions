@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOTNET_USE_MTP: true
+      DOTNET_TEST_USE_MTP: true
       DOTNET_VERSION: '10.0.x'
 
     steps:
