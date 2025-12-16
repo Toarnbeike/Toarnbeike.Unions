@@ -35,5 +35,14 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Unions/Generated/Union{arity:D2}Tests.cs"), unionTests);
     }
 
+    Console.WriteLine("\nGenerating match extensions tests");
+    foreach (var arity in range)
+    {
+        var matchTests = MatchExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Match/Generated/Match{arity:D2}Tests.cs"), matchTests);
+    }
+
+    Console.WriteLine("\nTest generation completed successfully.");
+
     return 0;
 }

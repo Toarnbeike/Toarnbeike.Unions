@@ -26,6 +26,10 @@ static int Generate(int upperBound)
     var unions = UnionGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Union.cs"), unions);
 
+    Console.WriteLine("Generating match extensions");
+    var matches = MatchExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/MatchExtensions.cs"), matches);
+
     Console.WriteLine("\nGeneration completed successfully.");
 
     return 0;
