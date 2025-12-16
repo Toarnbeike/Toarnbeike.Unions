@@ -31,5 +31,17 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
-    - name: Test
-      run: dotnet test tests/Unions.Tests/Unions.Tests.csproj --configuration Release --no-build
+    - name: Run TUnit Tests
+      run: |
+        # Run the TUnit test executable and capture output
+        dotnet run --project tests/Unions.Tests/Unions.Tests.csproj --configuration Release | tee tunit_output.log
+
+        # Fail the job if any tests failed
+        grep -q "failed: 0" tunit_output.log || exit 1
+
+    - name: Upload Test Output
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: tunit-output
+        path: tunit_output.log
