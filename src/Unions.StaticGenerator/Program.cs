@@ -30,6 +30,10 @@ static int Generate(int upperBound)
     var matches = MatchExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/MatchExtensions.cs"), matches);
 
+    Console.WriteLine("Generating switch extensions");
+    var switches = SwitchExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
+
     Console.WriteLine("\nGeneration completed successfully.");
 
     return 0;
