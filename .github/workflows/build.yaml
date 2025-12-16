@@ -1,68 +1,48 @@
-name: Build
+name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
     branches: [ main ]
 
 permissions:
   contents: write
 
-env:
-  DOTNET_VERSION: '10.0.x'
-
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    env:
+      DOTNET_USE_MTP: true
+      DOTNET_VERSION: '10.0.x'
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore
+      run: dotnet restore
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
 
-      - name: Run tests with coverage
-        run: dotnet test --configuration Release --no-build --coverage --report-trx --results-directory ./TestResults
+    - name: Test
+      run: |
+        dotnet test \
+          --configuration Release \
+          --no-build \
+          --report-trx \
+          --results-directory TestResults
 
-      - name: Upload test results
-        if: always()  # Run even if tests fail
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: ./TestResults/*.trx
-
-      - name: Upload coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: ./TestResults/*.coverage
-  
-  publish-results:
-    name: Publish Test Results
-    needs: test
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-    - name: Download all test results
-      uses: actions/download-artifact@v4
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
       with:
-        pattern: test-results-*
-        path: ./TestResults
-
-    - name: Publish test results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      with:
-        files: ./TestResults/**/*.trx
+        name: test-results
+        path: TestResults/*.trx
