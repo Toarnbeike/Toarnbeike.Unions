@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DOTNET_TEST_USE_MTP: true
       DOTNET_VERSION: '10.0.x'
 
     steps:
@@ -35,6 +34,7 @@ jobs:
     - name: Test
       run: |
         dotnet test \
+          --use-mtp \
           --configuration Release \
           --no-build \
           -- \
