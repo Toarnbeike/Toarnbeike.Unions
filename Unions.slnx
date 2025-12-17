@@ -1,5 +1,8 @@
 <Solution>
-  <Folder Name="/docs/" />
+  <Folder Name="/docs/">
+    <File Path="docs/Comparison.md" />
+    <File Path="docs/Extensions.md" />
+  </Folder>
   <Folder Name="/solution files/">
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />

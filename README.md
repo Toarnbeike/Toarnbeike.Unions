@@ -7,9 +7,10 @@
 This package provides **immutable, allocation-free union types** for C#, inspired by functional programming and discriminated unions, while remaining idiomatic to the .NET ecosystem.
 
 A `Union<T1, …, Tn>` represents a value that can be exactly one of several possible types at runtime, without relying on inheritance, nulls, or exceptions for control flow.
+This is particularly useful for modeling domain states and workflows where a value can be in one of a fixed set of alternatives.
 
 ## Features
-- Generated Union types with 2 to 8 type parameters (expandable with provided static generators)
+- Generated Union types with 2 to 8 type parameters (expandable via included generators)
 - Explicit construction and state inspection
 - Rich functional extensions (Map, Bind, Match, Switch, Tap)
 - Async support for all extensions
@@ -21,12 +22,50 @@ A `Union<T1, …, Tn>` represents a value that can be exactly one of several possi
 ---
 
 ## Contents
+1. [Quick start](#quick-start)
 1. [Core concepts](#core-concepts)
 1. [Extensions](#extensions)
 1. [Collections](#collections)
 1. [Test extensions](#test-extensions)
 1. [Design principles](#design-principles-and-best-practices)
-1. [Why Unions?](#why-unions)
+1. [Comparison: Why Unions?](#comparison-why-unions)
+1. [When not to use Unions?](#when-not-to-use-unions)
+1. [Conclusion](#conclusion)
+
+---
+
+## Quick start
+
+This example demonstrates the most common workflow when using unions: construction, transformation, and consumption.
+
+```csharp
+using Toarnbeike.Unions;
+using Toarnbeike.Unions.Extensions;
+
+Union<int, string> value = Union<int, string>.FromT1(10);
+
+// Transform the value
+var transformed = value
+    .Map(
+        t1 => t1 + 1,
+        t2 => t2.Length
+    );
+
+// Consume the union
+var result = transformed.Match(
+    t1 => $"Int: {t1}",
+    t2 => $"String length: {t2}"
+);
+
+Console.WriteLine(result); // Output: Int: 11
+```
+
+Key properties of this workflow:
+
+- The union is always in exactly one state
+- All transformations are explicit
+- All states must be handled exhaustively
+- No nulls, casts, or exceptions are required
 
 ---
 
@@ -66,7 +105,7 @@ if (union.IsT1) { ... }
 if (union.IsT2) { ... }
 ```
 
-Safe extraction using TryGet is available:
+Safe extraction using TryGet is available; TryGet never throws and does not allocate.
 ```csharp
 if (union.TryGetT1(out T1 value)) { ... }
 ```
@@ -77,13 +116,13 @@ if (union.TryGetT1(out T1 value)) { ... }
 
 The `Toarnbeike.Unions.Extensions` namespace contains rich extension methods for all `Union<T1,...,Tn>`.
 
-| Method         | Returns       | Description                                         |
-|----------------|---------------|-----------------------------------------------------|
-| `Match(...)`   | `TResult`     | Consome the union by handling all possible states.  |
-| `Switch(...)`  | `void`        | Handle a side effect for each possible state.       |
-| `Map(...)`     | `Union<TNew>` | Transform one or all values while returing a Union. |
-| `Bind(...)`    | `Union<>`     | State-dependent transitions to another `Union<>`.   |
-| `Tap(...)`     | `Union<>`     | Side-effects for a specific or for each state.      | 
+| Method        | Returns       | Description                                          | 
+|---------------|---------------|------------------------------------------------------| 
+| `Match(...)`  | `TResult`     | Consume the union by handling all possible states.   | 
+| `Switch(...)` | `void`        | Handle a side effect for each possible state.        | 
+| `Map(...)`    | `Union<...>`  | Transform one or all values while returning a Union. | 
+| `Bind(...)`   | `Union<...>`  | State-dependent transitions to another `Union<>`.    | 
+| `Tap(...)`    | `Union<...>`  | Side-effects for a specific state (fluent).          | 
 
 All extensions include async overloads and `Task<Union<...>>` variants.
 
@@ -123,6 +162,7 @@ t1Values[1].Value.ShouldBe(2);
 
 ### Partition
 Partition splits a collection of unions into separate collections for each type.
+This is useful when you need to process each union case in bulk.
 
 ```csharp
 var source = CreateMixedCollection();
@@ -164,11 +204,39 @@ This library intentionally favors:
 
 Notably **out of scope**:
 - Implicit conversions (types might not be unique within a union)
-- Null-based semantics (use [Options](Option.md))
+- Null-based semantics (use [Options](https://github.com/Toarnbeike/Toarnbeike.Optional))
 
 ---
 
-## Why Unions?
+## Comparison: Why Unions?
+
+| Alternative        | Typical use case               | How unions differ                                     |
+|--------------------|--------------------------------|-------------------------------------------------------|
+| Inheritance        | Behavioral polymorphism        | Unions model closed, explicit state alternatives.     |
+| Enums              | State without data             | Unions associate each state with its own value.       |
+| Nulls              | Optional references            | Unions encode alternatives explicitly.                |
+| Exceptions         | Unexpected failures            | Unions model expected outcomes.                       |
+| Option / Result    | Presence / success vs failure  | Unions generalize this to multiple meaningful states. |
+
+For a more detailed comparison, see the [Comparison document](docs/Comparison.md).
+
+---
+
+## When not to use Unions?
+
+| Scenario                               | Prefer instead           | Why                                                       |
+|----------------------------------------|--------------------------|-----------------------------------------------------------|
+| Simple success / failure               | `Result<T>`              | Binary outcomes are clearer with a dedicated abstraction. |
+| Optional presence only                 | `Option<T>`              | Avoid encoding absence as an extra union case.            |
+| Open-ended or extensible hierarchies   | Inheritance / interfaces | Unions are intentionally closed.                          |
+| Cross-cutting behavioral polymorphism  | Interfaces               | Unions model data states, not shared behavior.            |
+| Performance-critical hot paths (micro) | Specialized structs      | Pattern matching may be unnecessary overhead.             |
+
+Unions are a powerful modeling tool, but they are intentionally not universal.
+ 
+---
+
+## Conclusion
 
 `Union<T1, …, Tn>` enables:
 - Strongly typed alternatives
