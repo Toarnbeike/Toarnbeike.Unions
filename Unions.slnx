@@ -20,5 +20,6 @@
   </Folder>
   <Folder Name="/workflows/">
     <File Path=".github/workflows/build.yaml" />
+    <File Path=".github/workflows/publish.yaml" />
   </Folder>
 </Solution>
