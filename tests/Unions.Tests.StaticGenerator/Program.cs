@@ -58,6 +58,15 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Extensions/Map/Generated/Map{arity:D2}PartialTests.cs"), mapPartialTests);
     }
 
+    Console.WriteLine("Generating bind extensions tests");
+    foreach (var arity in range)
+    {
+        var bindFullTests = BindFullExtensionsTestsGenerator.Generate(arity);
+        var bindPartialTests = BindPartialExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}FullTests.cs"), bindFullTests);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}PartialTests.cs"), bindPartialTests);
+    }
+
     Console.WriteLine("Generating partition collection extensions tests");
     foreach (var arity in range)
     {
