@@ -1,1 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" />
+﻿<Project Sdk="Microsoft.NET.Sdk" >
+
+	<PropertyGroup>
+		<PackageId>Toarnbeike.Unions</PackageId>
+		<!-- Version is managed centrally in Directory.build.props to keep versions in sync.-->
+		<Description>Immutable, allocation-free Union types for C#, inspired by functional programming and discriminated unions. </Description>
+		<PackageTags>union oneof functional match switch map bind tap collections tests generated async</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+	
+</Project>
