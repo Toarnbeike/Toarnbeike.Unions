@@ -46,6 +46,10 @@ static int Generate(int upperBound)
     File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Full.cs"), bindFull);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Partial.cs"), bindPartial);
 
+    Console.WriteLine("Generating tap extensions");
+    var taps = TapExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/TapExtensions.cs"), taps);
+
     Console.WriteLine("Generating partition extensions");
     var partitions = PartitionExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Collections/PartitionExtensions.cs"), partitions);

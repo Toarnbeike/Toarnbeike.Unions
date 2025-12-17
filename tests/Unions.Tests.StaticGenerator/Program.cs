@@ -67,6 +67,13 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}PartialTests.cs"), bindPartialTests);
     }
 
+    Console.WriteLine("Generating tap extensions tests");
+    foreach (var arity in range)
+    {
+        var tapTests = TapExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Tap/Generated/Tap{arity:D2}Tests.cs"), tapTests);
+    }
+
     Console.WriteLine("Generating partition collection extensions tests");
     foreach (var arity in range)
     {
