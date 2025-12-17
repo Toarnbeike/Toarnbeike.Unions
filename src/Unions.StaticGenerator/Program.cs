@@ -35,10 +35,16 @@ static int Generate(int upperBound)
     File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
 
     Console.WriteLine("Generating map extensions");
-    var maps = MapFullExtensionsGenerator.Generate(range);
-    var mapTs = MapTExtensionsGenerator.Generate(range);
-    File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Full.cs"), maps);
-    File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Partial.cs"), mapTs);
+    var mapFull = MapFullExtensionsGenerator.Generate(range);
+    var mapPartial = MapTExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Full.cs"), mapFull);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Partial.cs"), mapPartial);
+
+    Console.WriteLine("Generating bind extensions");
+    var bindFull = BindFullExtensionsGenerator.Generate(range);
+    var bindPartial = BindPartialExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Full.cs"), bindFull);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Partial.cs"), bindPartial);
 
     Console.WriteLine("Generating partition extensions");
     var partitions = PartitionExtensionsGenerator.Generate(range);
