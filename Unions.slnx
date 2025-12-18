@@ -12,10 +12,12 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Unions.SourceGenerator/Unions.SourceGenerator.csproj" Id="354362ca-ba79-493d-b031-c8da0800048b" />
     <Project Path="src/Unions.StaticGenerator/Unions.StaticGenerator.csproj" Id="61e9aaff-cffa-4b82-a677-1fb4bf9fd6c7" />
     <Project Path="src/Unions/Unions.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Toarnbeike.Unions.SourceGenerator.Tests/Unions.SourceGenerator.Tests.csproj" Id="67eaaacc-78bd-416b-85ec-ac125a39e639" />
     <Project Path="tests/Unions.Tests.StaticGenerator/Unions.Tests.StaticGenerator.csproj" Id="2ac92359-786b-48f3-8518-aa67454d230b" />
     <Project Path="tests/Unions.Tests/Unions.Tests.csproj" Id="e19f86df-f5ee-41b6-92fa-20f420a255a7" />
   </Folder>
