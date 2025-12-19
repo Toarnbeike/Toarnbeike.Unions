@@ -6,7 +6,7 @@ namespace Toarnbeike.Unions.Generators;
 /// Generates the union.Project extension methods for the requested arities.
 /// This code is build-time tooling; readability and determinism are preferred over abstraction.
 /// </summary>
-/// <remarks> The ProjectTExtenions are generated in <see cref="ProjectTExtensionsGenerator"/></remarks>
+/// <remarks> The ProjectTExtenions are generated in <see cref="ProjectPartialExtensionsGenerator"/></remarks>
 internal static class ProjectFullExtensionsGenerator
 {
     public static string Generate(IEnumerable<int> arities)
