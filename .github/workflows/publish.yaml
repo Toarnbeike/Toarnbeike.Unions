@@ -12,6 +12,9 @@ jobs:
     env:
       DOTNET_VERSION: '10.0.x'
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
