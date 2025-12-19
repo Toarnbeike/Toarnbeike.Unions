@@ -34,9 +34,15 @@ static int Generate(int upperBound)
     var switches = SwitchExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
 
+    Console.WriteLine("Generating projection extensions");
+    var projectionFull = ProjectFullExtensionsGenerator.Generate(range);
+    var projectionPartial = ProjectPartialExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/ProjectExtensions.Full.cs"), projectionFull);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/ProjectExtensions.Partial.cs"), projectionPartial);
+
     Console.WriteLine("Generating map extensions");
     var mapFull = MapFullExtensionsGenerator.Generate(range);
-    var mapPartial = MapTExtensionsGenerator.Generate(range);
+    var mapPartial = MapPartialExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Full.cs"), mapFull);
     File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Partial.cs"), mapPartial);
 

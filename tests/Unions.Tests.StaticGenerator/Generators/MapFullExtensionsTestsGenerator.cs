@@ -47,10 +47,8 @@ internal static class MapFullExtensionsTestsGenerator
     {
         return $"""
 
-                    private static int? NullFunc(int original) => null;
-                    private static Task<int?> NullAsyncFunc(int original) => Task.FromResult<int?>(null);
-                    private static int ShouldNotBeCalled(int original) => throw new ShouldNotBeCalledException();
-                    private static Task<int> ShouldNotBeCalledAsync(int original) => throw new ShouldNotBeCalledException();
+                    private static T ShouldNotBeCalled<T>(T original) => throw new ShouldNotBeCalledException();
+                    private static Task<T> ShouldNotBeCalledAsync<T>(T original) => throw new ShouldNotBeCalledException();
                 """;
     }
 
@@ -66,7 +64,7 @@ internal static class MapFullExtensionsTestsGenerator
                              {{string.Join(",\n            ", _arities.Select(i => MapLine(i, i == arity)))}}
                          );
                          
-                         result.ShouldBeT{{arity}}({{arity + 10}});
+                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
                      }
                      
                      [Test]
@@ -93,7 +91,7 @@ internal static class MapFullExtensionsTestsGenerator
                              {{string.Join(",\n            ", _arities.Select(i => MapLineAsync(i, i == arity)))}}
                          );
                          
-                         result.ShouldBeT{{arity}}({{arity + 10}});
+                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
                      }
                      
                      [Test]
@@ -121,7 +119,7 @@ internal static class MapFullExtensionsTestsGenerator
                              {{string.Join(",\n            ", _arities.Select(i => MapLine(i, i == arity)))}}
                          );
                          
-                         result.ShouldBeT{{arity}}({{arity + 10}});
+                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
                      }
                  """;
     }
@@ -139,7 +137,7 @@ internal static class MapFullExtensionsTestsGenerator
                              {{string.Join(",\n            ", _arities.Select(i => MapLineAsync(i, i == arity)))}}
                          );
                          
-                         result.ShouldBeT{{arity}}({{arity + 10}});
+                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
                      }
                  """;
     }
@@ -147,28 +145,28 @@ internal static class MapFullExtensionsTestsGenerator
     private static string MapLine(int arity, bool isTarget)
     {
         return isTarget
-            ? $"u{arity} => u{arity}.Value + 10"
-            : $"u{arity} => ShouldNotBeCalled(u{arity}.Value)";
+            ? $"u{arity} => new U{arity}(u{arity}.Value + 10)"
+            : $"u{arity} => ShouldNotBeCalled(u{arity})";
     }
 
     private static string MapLineAsync(int arity, bool isTarget)
     {
         return isTarget
-            ? $"u{arity} => Task.FromResult(u{arity}.Value + 10)"
-            : $"u{arity} => ShouldNotBeCalledAsync(u{arity}.Value)";
+            ? $"u{arity} => Task.FromResult(new U{arity}(u{arity}.Value + 10))"
+            : $"u{arity} => ShouldNotBeCalledAsync(u{arity})";
     }
 
     private static string MapLineNull(int arity, bool isTarget)
     {
         return isTarget
-            ? $"u{arity} => NullFunc(u{arity}.Value)"
-            : $"u{arity} => ShouldNotBeCalled(u{arity}.Value)";
+            ? "null!"
+            : $"u{arity} => ShouldNotBeCalled(u{arity})";
     }
 
     private static string MapLineNullAsync(int arity, bool isTarget)
     {
         return isTarget
-            ? $"u{arity} => NullAsyncFunc(u{arity}.Value)"
-            : $"u{arity} => ShouldNotBeCalledAsync(u{arity}.Value)";
+            ? "null!"
+            : $"u{arity} => ShouldNotBeCalledAsync(u{arity})";
     }
 }

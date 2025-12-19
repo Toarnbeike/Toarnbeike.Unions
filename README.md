@@ -116,13 +116,14 @@ if (union.TryGetT1(out T1 value)) { ... }
 
 The `Toarnbeike.Unions.Extensions` namespace contains rich extension methods for all `Union<T1,...,Tn>`.
 
-| Method        | Returns       | Description                                          | 
-|---------------|---------------|------------------------------------------------------| 
-| `Match(...)`  | `TResult`     | Consume the union by handling all possible states.   | 
-| `Switch(...)` | `void`        | Handle a side effect for each possible state.        | 
-| `Map(...)`    | `Union<...>`  | Transform one or all values while returning a Union. | 
-| `Bind(...)`   | `Union<...>`  | State-dependent transitions to another `Union<>`.    | 
-| `Tap(...)`    | `Union<...>`  | Side-effects for a specific state (fluent).          | 
+| Method         | Returns       | Description                                          | 
+|----------------|---------------|------------------------------------------------------| 
+| `Match(...)`   | `TResult`     | Consume the union by handling all possible states.   | 
+| `Switch(...)`  | `void`        | Handle a side effect for each possible state.        | 
+| `Map(...)`     | `Union<...>`  | Transform one or all values within the same Union.   | 
+| `Project(...)` | `Union<...>`  | Projects one or all values to a new Union.           |
+| `Bind(...)`    | `Union<...>`  | State-dependent transitions to another `Union<>`.    | 
+| `Tap(...)`     | `Union<...>`  | Side-effects for a specific state (fluent).          | 
 
 All extensions include async overloads and `Task<Union<...>>` variants.
 

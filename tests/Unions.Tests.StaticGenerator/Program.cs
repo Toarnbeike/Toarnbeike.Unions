@@ -49,6 +49,15 @@ static int GenerateTests(int maxArity)
         File.WriteAllText(Path.Join(outputRoot, $"Extensions/Switch/Generated/Switch{arity:D2}Tests.cs"), switchTests);
     }
 
+    Console.WriteLine("Generating projection extensions tests");
+    foreach (var arity in range)
+    {
+        var projectFullTests = ProjectFullExtensionsTestsGenerator.Generate(arity);
+        var projectPartialTests = ProjectPartialExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Project/Generated/Project{arity:D2}FullTests.cs"), projectFullTests);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Project/Generated/Project{arity:D2}PartialTests.cs"), projectPartialTests);
+    }
+
     Console.WriteLine("Generating map extensions tests");
     foreach (var arity in range)
     {
