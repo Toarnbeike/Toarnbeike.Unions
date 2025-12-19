@@ -1,11 +1,14 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
 using System.Collections.Immutable;
+using System.Text;
+using Toarnbeike.Unions.Model;
 
-namespace Toarnbeike.Unions;
+namespace Toarnbeike.Unions.Generators;
 
 [Generator]
-public sealed class UnionGenerator : IIncrementalGenerator
+public sealed class UnionSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -55,8 +58,9 @@ public sealed class UnionGenerator : IIncrementalGenerator
     {
         foreach (var symbol in classes.Distinct(SymbolEqualityComparer.Default).OfType<INamedTypeSymbol>())
         {
-            UnionAnalyzer.ValidateUnion(symbol, context);
-            // Code generation volgt later
+            var model = new UnionModel(symbol);
+            context.AddSource($"{symbol.Name}_Union.g.cs", SourceText.From(CoreGenerator.Execute(model), Encoding.UTF8));
+            context.AddSource($"{symbol.Name}_Match.g.cs", SourceText.From(MatchGenerator.Execute(model), Encoding.UTF8));
         }
     }
 }

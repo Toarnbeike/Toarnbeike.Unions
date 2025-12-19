@@ -17,7 +17,7 @@ public class UnionValidationTests
         public record A;
         """;
 
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU001")
             .WithSpan("/0/Test1.cs", 4, 22, 4, 28)
@@ -39,7 +39,7 @@ public class UnionValidationTests
         public record B;
         """;
 
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU002")
             .WithSpan("/0/Test1.cs", 6, 22, 6, 28)
@@ -59,7 +59,7 @@ public class UnionValidationTests
         public record A;
         """;
 
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU003")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)
@@ -80,7 +80,7 @@ public class UnionValidationTests
         public record B;
         """;
 
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU004")
             .WithSpan("/0/Test1.cs", 5, 14, 5, 20)
@@ -101,7 +101,7 @@ public class UnionValidationTests
         public class B;
         """;
 
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerWarning("TU005")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)
@@ -121,7 +121,7 @@ public class UnionValidationTests
         public record A;
         public interface B;
         """;
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU006")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)
@@ -141,7 +141,7 @@ public class UnionValidationTests
         public record A;
         public abstract record B;
         """;
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU006")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)
@@ -161,7 +161,7 @@ public class UnionValidationTests
         public record A<T>;
         public record B;
         """;
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU007")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)
@@ -181,7 +181,7 @@ public class UnionValidationTests
         public record A;
         public record B { public record C; }
         """;
-        await GeneratorTest.VerifyAsync(
+        await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU008")
             .WithSpan("/0/Test1.cs", 5, 22, 5, 28)

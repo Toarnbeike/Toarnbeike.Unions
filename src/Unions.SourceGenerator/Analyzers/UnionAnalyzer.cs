@@ -1,7 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Toarnbeike.Unions;
+namespace Toarnbeike.Unions.Analyzers;
 
 internal static class UnionAnalyzer
 {
@@ -14,7 +15,7 @@ internal static class UnionAnalyzer
     /// </summary>
     /// <param name="unionSymbol">The union symbol to validate.</param>
     /// <param name="context">The SourceProductionContext used to report diagnostics.</param>
-    public static void ValidateUnion(INamedTypeSymbol unionSymbol, SourceProductionContext context)
+    public static void ValidateUnion(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context)
     {
         _errorsDetected = false;
         CheckT004_UnionMustBePartial(unionSymbol, context);
@@ -41,7 +42,7 @@ internal static class UnionAnalyzer
         CheckT005_UnionCaseShouldBeRecord(unionSymbol, context, caseTypes);
     }
 
-    private static void CheckT001_TooFewCases(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<AttributeData> cases)
+    private static void CheckT001_TooFewCases(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<AttributeData> cases)
     {
         if (cases.Count < 2)
         {
@@ -55,7 +56,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT002_DuplicateCases(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT002_DuplicateCases(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         var duplicates = caseTypes
             .GroupBy(t => t, SymbolEqualityComparer.Default)
@@ -73,7 +74,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT003_InvalidCaseType(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT003_InvalidCaseType(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         foreach (var type in caseTypes)
         {
@@ -90,7 +91,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT004_UnionMustBePartial(INamedTypeSymbol unionSymbol, SourceProductionContext context)
+    private static void CheckT004_UnionMustBePartial(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context)
     {
         if (!unionSymbol.DeclaringSyntaxReferences
             .Select(r => r.GetSyntax())
@@ -107,7 +108,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT005_UnionCaseShouldBeRecord(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT005_UnionCaseShouldBeRecord(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         foreach (var caseTypeSymbol in caseTypes)
         {
@@ -124,7 +125,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT006_UnionCaseMustBeConcrete(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT006_UnionCaseMustBeConcrete(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         foreach (var caseTypeSymbol in caseTypes)
         {
@@ -141,7 +142,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT007_UnionCaseMustBeNonGeneric(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT007_UnionCaseMustBeNonGeneric(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         foreach (var caseTypeSymbol in caseTypes)
         {
@@ -158,7 +159,7 @@ internal static class UnionAnalyzer
         }
     }
 
-    private static void CheckT008_UnionCaseMustBeNonNested(INamedTypeSymbol unionSymbol, SourceProductionContext context, List<INamedTypeSymbol?> caseTypes)
+    private static void CheckT008_UnionCaseMustBeNonNested(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
         foreach (var caseTypeSymbol in caseTypes)
         {

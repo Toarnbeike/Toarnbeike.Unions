@@ -1,9 +1,10 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Testing;
+using Toarnbeike.Unions.Analyzers;
 
 namespace Toarnbeike.Unions.Utilities;
 
-internal static class GeneratorTest
+internal static class AnalyzerTest
 {
     private const string UnionCaseAttributeSource = """
         namespace Toarnbeike.Unions;
@@ -17,7 +18,7 @@ internal static class GeneratorTest
 
     public static async Task VerifyAsync(string source, params DiagnosticResult[] expectedDiagnostics)
     {
-        var test = new CSharpSourceGeneratorTest<UnionGenerator, ShouldlyVerifier>
+        var test = new CSharpAnalyzerTest<UnionDiagnosticAnalyzer, ShouldlyVerifier>
         {
             TestState =
             {

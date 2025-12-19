@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
+using System.Collections.Immutable;
 
-namespace Toarnbeike.Unions;
+namespace Toarnbeike.Unions.Analyzers;
 
 internal static class Diagnostics
 {
@@ -92,6 +93,18 @@ internal static class Diagnostics
             defaultSeverity: DiagnosticSeverity.Error,
             isEnabledByDefault: true,
             description: "Union cases must not be nested types."
+        );
+
+    public static ImmutableArray<DiagnosticDescriptor> All { get; } =
+        ImmutableArray.Create(
+            TooFewCases,
+            DuplicateCase,
+            InvalidCaseType,
+            UnionMustBePartial,
+            UnionCaseMustBeRecord,
+            UnionCaseMustBeConcrete,
+            UnionCaseMustBeNonGeneric,
+            UnionCaseMustBeUnnested
         );
 }
 
