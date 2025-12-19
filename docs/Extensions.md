@@ -8,21 +8,23 @@ These extensions are inspired by functional programming paradigms and are design
 
 ## Overview 
 
-| Method                    | Returns       | Description                                          | 
-|---------------------------|---------------|------------------------------------------------------| 
-| [`Match(...)`](#match)    | `TResult`     | Consume the union by handling all possible states.   | 
-| [`Switch(...)`](#switch)  | `void`        | Handle a side effect for each possible state.        | 
-| [`Map(...)`](#map)        | `Union<...>`  | Transform one or all values while returning a Union. | 
-| [`Bind(...)`](#bind)      | `Union<...>`  | State-dependent transitions to another `Union<>`.    | 
-| [`Tap(...)`](#tap)        | `Union<...>`  | Side-effects for a specific state (fluent).          | 
+| Method                     | Returns          | Description                                          | 
+|----------------------------|------------------|------------------------------------------------------| 
+| [`Match(...)`](#match)     | `TResult`        | Consume the union by handling all possible states.   | 
+| [`Switch(...)`](#switch)   | `void`           | Handle a side effect for each possible state.        | 
+| [`Map(...)`](#map)         | `Union<...>`     | Transform one or all values within the same Union.   | 
+| [`Project(...)`](#project) | `Union<T',...>`  | Projects one or all values to a new Union type.      |
+| [`Bind(...)`](#bind)       | `Union<...>`     | State-dependent transitions to another `Union<>`.    | 
+| [`Tap(...)`](#tap)         | `Union<...>`     | Side-effects for a specific state (fluent).          | 
 
 ### Choosing the right method
 
-- Use `Match` when you want a final result
-- Use `Switch` for terminal side effects
-- Use `Map` to transform values
-- Use `Bind` when the next state depends on the current value
-- Use `Tap` for side effects while keeping the union
+- Use [`Match`](#match) when you want a final result
+- Use [`Switch`](#switch) for terminal side effects
+- Use [`Map`](#map) when transforming values wihting the same union
+- Use [`Project`](#project) when transitioning to a different union
+- Use [`Bind`](#bind) when the next state depends on the current value
+- Use [`Tap`](#tap) for side effects while keeping the union
 
 --- 
 
@@ -62,13 +64,16 @@ Overloads are available for all Union types, including async variants and `Task<
 
 ## Map 
 
-The Map extension method allows you to transform the value contained in a union while returning a new union of potentially different types. 
-Since the result is a new union, this is a non-consuming operation that can be chained.
+The `Map` extension method allows you to transform the value contained in a union **while preserving the union shape**.
+
+Each mapped case remains in the same union case; only the value is transformed.
+
+This makes Map a non-consuming, shape-preserving operation that can be fluently chained and safely used in domain models.
 
 ```csharp
 var newUnion = union.Map(
-	t1 => t1 + 1,               // Transform int
-	t2 => t2.ToUpper()         // Transform string
+	t1 => t1 + 1,               // Transform int, stays T1
+	t2 => t2.ToUpper()         // Transform string, stays T2
 );
 ```
 
@@ -76,14 +81,46 @@ Besides the global mapping of all types, Map also supports mapping individual ty
 
 ```csharp
 var newUnion = union.MapT1(
-	t1 => t1 + 1       // Only transform int, leave string unchanged
+	t1 => t1 + 1       // Only transform int (T1), leave string (T2) unchanged
 );
 ```
+
+This operation always returns a union of the same type as the input union.
 
 Overloads are available for all Union types, including async variants and `Task<Union<...>>` versions. 
 
 --- 
 
+## Project
+
+The `Project` extension method allows you to project one or more union cases to a new union type.
+
+Each case can be transformed to a different type, resulting in a different union shape.
+
+This is useful for:
+- transitioning between domains
+- reducing or expanding union cases
+- mapping domain values to DTOs or result types
+
+```csharp
+var projected = union.Project(
+    t1 => Union<string, bool>.FromT1($"Value: {t1}"),
+    t2 => Union<string, bool>.FromT2(t2.Length > 0)
+);
+```
+
+Besides projecting all types at once, `Project` also supports projecting individual cases while leaving others unchanged:
+
+var projected = union.ProjectT1(
+    t1 => Union<int, string>.FromT2("Converted from T1")
+);
+
+
+Unlike `Map`, `Project` changes the resulting union type and therefore represents a shape-changing transformation.
+
+Async overloads and Task<Union<...>> variants are available for all Union arities.
+
+---
 ## Bind 
 
 The Bind extension method allows you to perform case-dependent transitions to other cases within the same union. 
