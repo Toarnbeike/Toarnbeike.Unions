@@ -11,8 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Deprecated
 ### Removed
 ### Fixed
+### Tooling
 
 ---
+
+## [1.1.1] - 2025-12-19
+
+### Tooling
+- CI/CD improvements
+- Version checks
 
 ## [1.1.0] - 2025-12-19
 
