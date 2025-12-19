@@ -24,69 +24,78 @@ static int GenerateTests(int maxArity)
     var range = Enumerable.Range(2, maxArity - 1).ToArray();  // arities from 2 to upperBound inclusive
     var outputRoot = "../../../../Unions.Tests"; // location to write generated test files
 
-    Console.WriteLine("\nGenerating union test types");
-    var unionTestTypes = UnionTestTypeGenerator.Generate(maxArity);
-    File.WriteAllText(Path.Join(outputRoot, "TestTypes/UnionTestTypes.cs"), unionTestTypes);
+    //Console.WriteLine("\nGenerating union test types");
+    //var unionTestTypes = UnionTestTypeGenerator.Generate(maxArity);
+    //File.WriteAllText(Path.Join(outputRoot, "TestTypes/UnionTestTypes.cs"), unionTestTypes);
 
-    Console.WriteLine("\nGenerating union tests");
+    //Console.WriteLine("\nGenerating union tests");
+    //foreach (var arity in range)
+    //{
+    //    var unionTests = UnionTestGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Unions/Generated/Union{arity:D2}Tests.cs"), unionTests);
+    //}
+
+    //Console.WriteLine("Generating match extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var matchTests = MatchExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Match/Generated/Match{arity:D2}Tests.cs"), matchTests);
+    //}
+
+    //Console.WriteLine("Generating switch extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var switchTests = SwitchExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Switch/Generated/Switch{arity:D2}Tests.cs"), switchTests);
+    //}
+
+    Console.WriteLine("Generating projection extensions tests");
     foreach (var arity in range)
     {
-        var unionTests = UnionTestGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Unions/Generated/Union{arity:D2}Tests.cs"), unionTests);
+        var projectFullTests = ProjectFullExtensionsTestsGenerator.Generate(arity);
+        var projectPartialTests = ProjectPartialExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Project/Generated/Project{arity:D2}FullTests.cs"), projectFullTests);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Project/Generated/Project{arity:D2}PartialTests.cs"), projectPartialTests);
     }
 
-    Console.WriteLine("Generating match extensions tests");
-    foreach (var arity in range)
-    {
-        var matchTests = MatchExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Match/Generated/Match{arity:D2}Tests.cs"), matchTests);
-    }
+    //Console.WriteLine("Generating map extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var mapFullTests = MapFullExtensionsTestsGenerator.Generate(arity);
+    //    var mapPartialTests = MapPartialExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Map/Generated/Map{arity:D2}FullTests.cs"), mapFullTests);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Map/Generated/Map{arity:D2}PartialTests.cs"), mapPartialTests);
+    //}
 
-    Console.WriteLine("Generating switch extensions tests");
-    foreach (var arity in range)
-    {
-        var switchTests = SwitchExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Switch/Generated/Switch{arity:D2}Tests.cs"), switchTests);
-    }
+    //Console.WriteLine("Generating bind extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var bindFullTests = BindFullExtensionsTestsGenerator.Generate(arity);
+    //    var bindPartialTests = BindPartialExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}FullTests.cs"), bindFullTests);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}PartialTests.cs"), bindPartialTests);
+    //}
 
-    Console.WriteLine("Generating map extensions tests");
-    foreach (var arity in range)
-    {
-        var mapFullTests = MapFullExtensionsTestsGenerator.Generate(arity);
-        var mapPartialTests = MapPartialExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Map/Generated/Map{arity:D2}FullTests.cs"), mapFullTests);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Map/Generated/Map{arity:D2}PartialTests.cs"), mapPartialTests);
-    }
+    //Console.WriteLine("Generating tap extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var tapTests = TapExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Extensions/Tap/Generated/Tap{arity:D2}Tests.cs"), tapTests);
+    //}
 
-    Console.WriteLine("Generating bind extensions tests");
-    foreach (var arity in range)
-    {
-        var bindFullTests = BindFullExtensionsTestsGenerator.Generate(arity);
-        var bindPartialTests = BindPartialExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}FullTests.cs"), bindFullTests);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}PartialTests.cs"), bindPartialTests);
-    }
+    //Console.WriteLine("Generating partition collection extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var partitionTests = PartitionExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"Collections/Partitions/Generated/Partition{arity:D2}Tests.cs"), partitionTests);
+    //}
 
-    Console.WriteLine("Generating tap extensions tests");
-    foreach (var arity in range)
-    {
-        var tapTests = TapExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Tap/Generated/Tap{arity:D2}Tests.cs"), tapTests);
-    }
-
-    Console.WriteLine("Generating partition collection extensions tests");
-    foreach (var arity in range)
-    {
-        var partitionTests = PartitionExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Collections/Partitions/Generated/Partition{arity:D2}Tests.cs"), partitionTests);
-    }
-
-    Console.WriteLine("Generating test helper extensions tests");
-    foreach (var arity in range)
-    {
-        var testExtensionsTests = TestExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"TestExtensions/Generated/TestExtensions{arity:D2}Tests.cs"), testExtensionsTests);
-    }
+    //Console.WriteLine("Generating test helper extensions tests");
+    //foreach (var arity in range)
+    //{
+    //    var testExtensionsTests = TestExtensionsTestsGenerator.Generate(arity);
+    //    File.WriteAllText(Path.Join(outputRoot, $"TestExtensions/Generated/TestExtensions{arity:D2}Tests.cs"), testExtensionsTests);
+    //}
 
     Console.WriteLine("\nTest generation completed successfully.");
 
