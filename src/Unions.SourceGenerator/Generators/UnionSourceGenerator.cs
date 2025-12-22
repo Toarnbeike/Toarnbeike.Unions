@@ -61,6 +61,9 @@ public sealed class UnionSourceGenerator : IIncrementalGenerator
             var model = new UnionModel(symbol);
             context.AddSource($"{symbol.Name}_Union.g.cs", SourceText.From(CoreGenerator.Execute(model), Encoding.UTF8));
             context.AddSource($"{symbol.Name}_Match.g.cs", SourceText.From(MatchGenerator.Execute(model), Encoding.UTF8));
+            context.AddSource($"{symbol.Name}_Switch.g.cs", SourceText.From(SwitchGenerator.Execute(model), Encoding.UTF8));
+            context.AddSource($"{symbol.Name}_TestExtensions.g.cs", SourceText.From(TestExtensionsGenerator.Execute(model), Encoding.UTF8));
+            context.AddSource($"{symbol.Name}_Map.g.cs", SourceText.From(MapGenerator.Execute(model), Encoding.UTF8));
         }
     }
 }

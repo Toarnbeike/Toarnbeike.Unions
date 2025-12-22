@@ -30,8 +30,6 @@ internal static class MatchGenerator
             //   This is an auto-generated file. Do not modify.
             // </auto-generated>
             
-            using System.Diagnostics;
-            using System.Diagnostics.CodeAnalysis;
             using Toarnbeike.Unions;
             using Toarnbeike.Unions.Extensions;
             {{model.CaseUsings}}

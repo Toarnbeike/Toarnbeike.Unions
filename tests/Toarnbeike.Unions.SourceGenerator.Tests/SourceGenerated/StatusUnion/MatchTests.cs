@@ -43,4 +43,44 @@ public class MatchTests
         
         result.ShouldBe($"Aborted at {abortTime}");
     }
+
+    [Test]
+    public async Task Status_MatchAsync_Should_Work()
+    {
+        var status = Status.Active(new Active("Running"));
+
+        var result = await status.MatchAsync(
+            active => Task.FromResult(active.Description),
+            retry => Task.FromResult($"Retry {retry.Attempt}"),
+            aborted => Task.FromResult($"Aborted at {aborted.CancellationDateTime}")
+            );
+
+        result.ShouldBe("Running");
+    }
+
+    [Test]
+    public async Task StatusTask_Match_Should_Work()
+    {
+        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+
+        var result = await statusTask.Match(
+            active => active.Description,
+            retry => $"Retry {retry.Attempt}",
+            aborted => $"Aborted at {aborted.CancellationDateTime}");
+
+        result.ShouldBe("Running");
+    }
+
+    [Test]
+    public async Task StatusTask_MatchAsync_Should_Work()
+    {
+        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+
+        var result = await statusTask.MatchAsync(
+            active => Task.FromResult(active.Description),
+            retry => Task.FromResult($"Retry {retry.Attempt}"),
+            aborted => Task.FromResult($"Aborted at {aborted.CancellationDateTime}"));
+
+        result.ShouldBe("Running");
+    }
 }
