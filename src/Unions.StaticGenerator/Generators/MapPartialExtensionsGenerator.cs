@@ -17,109 +17,126 @@ internal static class MapPartialExtensionsGenerator
             namespace Toarnbeike.Unions.Extensions;
 
             /// <summary>
-            /// Map: extension methods to map union values, modifying the inner value, but keeping the types equal (endomorphic).
+            /// Map: extension methods to map (transform) union values.
             /// </summary>
-            /// <remarks>
-            /// This files deals with partial Map: transforms a single member of the union if the union is in that specific state.
-            /// For modifying all values at once (full map), see the other part of this partial class.
-            /// </summary>
+            /// <remarks> 
+            /// This file deals with partial mappings, transforming one specific case of the union.
+            /// For full mappings, see the other part of this partial class.
+            /// </remarks>
             public static partial class MapExtensions
-            {{{string.Join("\n", arities.Select(GenerateMap))}}
+            {{{string.Join("\n", arities.Select(GenerateMaps))}}
             }
             """;
     }
 
-    private static string GenerateMap(int arity)
+    private static string GenerateMaps(int arity)
     {
         var arities = Enumerable.Range(1, arity).ToArray();
         var genericArgs = $"<{string.Join(", ", arities.Select(i => $"T{i}"))}>";
         return $$"""
 
-                     #region Map Extensions for Union{{genericArgs}}
+                     #region Mapion Extensions for Union{{genericArgs}}
 
                      extension{{genericArgs}}(Union{{genericArgs}} union)
                      {
-                 {{string.Join("\n", arities.Select(i => MapT(i, genericArgs)))}}
-                 {{string.Join("\n", arities.Select(i => MapAsyncT(i, genericArgs)))}}
+                 {{string.Join("\n", arities.Select(i => MapT(i, arities)))}}
+                 {{string.Join("\n", arities.Select(i => MapAsyncT(i, arities)))}}
                      }
                      
                      extension{{genericArgs}}(Task<Union{{genericArgs}}> unionTask)
                      {
-                 {{string.Join("\n", arities.Select(i => TaskMapT(i, genericArgs)))}}
-                 {{string.Join("\n", arities.Select(i => TaskMapAsyncT(i, genericArgs)))}}
+                 {{string.Join("\n", arities.Select(i => TaskMapT(i, arities)))}}
+                 {{string.Join("\n", arities.Select(i => TaskMapAsyncT(i, arities)))}}
                      }
 
                      #endregion
                  """;
     }
 
-    private static string MapT(int arity, string genericArgs)
+    private static string MapT(int arity, int[] arities)
     {
+        var newArgs = $"<{string.Join(", ", arities.Select(i => i == arity ? "TNew" : $"T{i}"))}>";
         return $$"""
 
                         /// <summary>
                         /// Apply a mapping function to the value stored in the union if it is in the T{{arity}} state.
                         /// </summary>
-                        /// <param name="map">The mapping function to apply.</param>
-                        public Union{{genericArgs}} MapT{{arity}}(Func<T{{arity}}, T{{arity}}> map)
+                        /// <param name="mapping">The mapping function to apply.</param>
+                        public Union{{newArgs}} MapT{{arity}}<TNew>(Func<T{{arity}}, TNew> mapping)
                         {
-                            ArgumentNullException.ThrowIfNull(map);
+                            ArgumentNullException.ThrowIfNull(mapping);
 
-                             return union.TryGetT{{arity}}(out var value)
-                                 ? Union{{genericArgs}}.FromT{{arity}}(map(value))
-                                 : union;
+                            return union.Match(
+                               {{string.Join(",\n              ", arities.Select(i => MatchLine(i, newArgs, i == arity)))}}
+                            );
                         }
                  """;
     }
 
-    private static string MapAsyncT(int arity, string genericArgs)
+    private static string MapAsyncT(int arity, int[] arities)
     {
+        var newArgs = $"<{string.Join(", ", arities.Select(i => i == arity ? "TNew" : $"T{i}"))}>";
         return $$"""
 
                         /// <summary>
                         /// Apply an async mapping function to the value stored in the union if it is in the T{{arity}} state.
                         /// </summary>
-                        /// <param name="mapAsync">The mapping function to apply.</param>
-                        public async Task<Union{{genericArgs}}> MapT{{arity}}Async(Func<T{{arity}}, Task<T{{arity}}>> mapAsync)
+                        /// <param name="mappingAsync">The mapping function to apply.</param>
+                        public Task<Union{{newArgs}}> MapT{{arity}}Async<TNew>(Func<T{{arity}}, Task<TNew>> mappingAsync)
                         {
-                            ArgumentNullException.ThrowIfNull(mapAsync);
+                            ArgumentNullException.ThrowIfNull(mappingAsync);
 
-                             return union.TryGetT{{arity}}(out var value)
-                                 ? Union{{genericArgs}}.FromT{{arity}}(await mapAsync(value).ConfigureAwait(false))
-                                 : union;
+                            return union.MatchAsync(
+                               {{string.Join(",\n              ", arities.Select(i => MatchLineAsync(i, newArgs, i == arity)))}}
+                            );
                         }                           
                  """;
     }
 
-    private static string TaskMapT(int arity, string genericArgs)
+    private static string TaskMapT(int arity, int[] arities)
     {
+        var newArgs = $"<{string.Join(", ", arities.Select(i => i == arity ? "TNew" : $"T{i}"))}>";
         return $$"""
 
                         /// <summary>
                         /// Apply a mapping function to the value stored in the task union if it is in the T{arity} state.
                         /// </summary>
-                        /// <param name="map">The mapping function to apply.</param>
-                        public async Task<Union{{genericArgs}}> MapT{{arity}}(Func<T{{arity}}, T{{arity}}> map)
+                        /// <param name="mapping">The mapping function to apply.</param>
+                        public async Task<Union{{newArgs}}> MapT{{arity}}<TNew>(Func<T{{arity}}, TNew> mapping)
                         {
                             var union = await unionTask.ConfigureAwait(false);
-                            return union.MapT{{arity}}(map);
+                            return union.MapT{{arity}}(mapping);
                         }
                  """;
     }
 
-    private static string TaskMapAsyncT(int arity, string genericArgs)
+    private static string TaskMapAsyncT(int arity, int[] arities)
     {
+        var newArgs = $"<{string.Join(", ", arities.Select(i => i == arity ? "TNew" : $"T{i}"))}>";
         return $$"""
 
                         /// <summary>
                         /// Apply an async mapping function to the value stored in the task union if it is in the T{arity} state.
                         /// </summary>
-                        /// <param name="mapAsync">The mapping function to apply.</param>
-                        public async Task<Union{{genericArgs}}> MapT{{arity}}Async(Func<T{{arity}}, Task<T{{arity}}>> mapAsync)
+                        /// <param name="mappingAsync">The mapping function to apply.</param>
+                        public async Task<Union{{newArgs}}> MapT{{arity}}Async<TNew>(Func<T{{arity}}, Task<TNew>> mappingAsync)
                         {
                             var union = await unionTask.ConfigureAwait(false);
-                            return await union.MapT{{arity}}Async(mapAsync).ConfigureAwait(false);
+                            return await union.MapT{{arity}}Async(mappingAsync).ConfigureAwait(false);
                         }
                  """;
+    }
+
+    private static string MatchLine(int arity, string newArgs, bool isCurrent)
+    {
+        var argument = isCurrent ? $"mapping(t{arity})" : $"t{arity}";
+        return $"t{arity} => Union{newArgs}.FromT{arity}({argument})";
+    }
+
+    private static string MatchLineAsync(int arity, string newArgs, bool isCurrent)
+    {
+        return isCurrent
+            ? $"    async t{arity} => Union{newArgs}.FromT{arity}(await mappingAsync(t{arity}).ConfigureAwait(false))"
+            : $"    t{arity} => Task.FromResult(Union{newArgs}.FromT{arity}(t{arity}))";
     }
 }

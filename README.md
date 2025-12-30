@@ -120,8 +120,7 @@ The `Toarnbeike.Unions.Extensions` namespace contains rich extension methods for
 |----------------|---------------|------------------------------------------------------| 
 | `Match(...)`   | `TResult`     | Consume the union by handling all possible states.   | 
 | `Switch(...)`  | `void`        | Handle a side effect for each possible state.        | 
-| `Map(...)`     | `Union<...>`  | Transform one or all values within the same Union.   | 
-| `Project(...)` | `Union<...>`  | Projects one or all values to a new Union.           |
+| `Map(...)`     | `Union<...>`  | Transform one or all values within the Union.        | 
 | `Bind(...)`    | `Union<...>`  | State-dependent transitions to another `Union<>`.    | 
 | `Tap(...)`     | `Union<...>`  | Side-effects for a specific state (fluent).          | 
 
