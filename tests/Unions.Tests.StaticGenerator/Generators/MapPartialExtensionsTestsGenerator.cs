@@ -47,8 +47,10 @@ internal static class MapPartialExtensionsTestsGenerator
     {
         return $"""
 
-                    private static T ShouldNotBeCalled<T>(T original) => throw new ShouldNotBeCalledException();
-                    private static Task<T> ShouldNotBeCalledAsync<T>(T original) => throw new ShouldNotBeCalledException();
+                    private static int? NullFunc(int original) => null;
+                    private static Task<int?> NullAsyncFunc(int original) => Task.FromResult<int?>(null);
+                    private static int ShouldNotBeCalled(int original) => throw new ShouldNotBeCalledException();
+                    private static Task<int> ShouldNotBeCalledAsync(int original) => throw new ShouldNotBeCalledException();
                 """;
     }
 
@@ -59,31 +61,39 @@ internal static class MapPartialExtensionsTestsGenerator
         return $$"""
 
                      [Test]
-                     public void MapT{{arity}}_Should_Invoke_T{{arity}}_Mapper()
+                     public void MapT{{arity}}_Should_Invoke_T{{arity}}_Map()
                      {
                          var union = MakeT{{arity}}({{arity}});
-                         var result = union.MapT{{arity}}(u{{arity}} => new U{{arity}}(u{{arity}}.Value + 10));
+                         var result = union.MapT{{arity}}(u{{arity}} => u{{arity}}.Value + 10);
                          
-                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
+                         result.ShouldBeT{{arity}}({{arity + 10}});
                      }
+                 {{string.Join("\n", _arities.Where(a => a != arity).Select(a => NotInvoke(a, arity)))}}
 
                      [Test]
-                     public void MapT{{arity}}_Should_RemainUnmodified_WhenOtherArity()
-                     {
-                         var union = MakeT{{otherArity}}({{otherArity}});
-                         var result = union.MapT{{arity}}(u{{arity}} => ShouldNotBeCalled(u{{arity}}));
-
-                         result.ShouldBeT{{otherArity}}().Value.ShouldBe({{otherArity}});
-                     }
-
-                     [Test]
-                     public void MapT{{arity}}_Throws_When_T{{arity}}_Mapper_ReturnsNull()
+                     public void MapT{{arity}}_Throws_When_T{{arity}}_Map_ReturnsNull()
                      {
                          var union = MakeT{{arity}}({{arity}});
                          
-                         Should.Throw<ArgumentNullException>(() => union.MapT{{arity}}(null!));
+                         Should.Throw<ArgumentNullException>(() => union.MapT{{arity}}(u{{arity}} => NullFunc(u{{arity}}.Value)));
                      }
                  """;
+    }
+
+    private static string NotInvoke(int otherArity, int testedArity)
+    {
+        return $$"""
+
+                [Test]
+                public void MapT{{testedArity}}_Should_NotInvoke_WhenT{{otherArity}}()
+                {
+                    var union = MakeT{{otherArity}}({{otherArity}});
+
+                    var result = union.MapT{{testedArity}}(u{{testedArity}} => ShouldNotBeCalled(u{{testedArity}}.Value));
+
+                    result.ShouldBeT{{otherArity}}().Value.ShouldBe({{otherArity}});
+                }
+            """;
     }
 
     private static string MapTAsync(int arity)
@@ -93,31 +103,40 @@ internal static class MapPartialExtensionsTestsGenerator
         return $$"""
 
                      [Test]
-                     public async Task MapT{{arity}}Async_Should_Invoke_T{{arity}}_Mapper()
+                     public async Task MapT{{arity}}Async_Should_Invoke_T{{arity}}_Map()
                      {
                          var union = MakeT{{arity}}({{arity}});
-                         var result = await union.MapT{{arity}}Async(u{{arity}} => Task.FromResult(new U{{arity}}(u{{arity}}.Value + 10)));
+                         var result = await union.MapT{{arity}}Async(u{{arity}} => Task.FromResult(u{{arity}}.Value + 10));
                          
-                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
+                         result.ShouldBeT{{arity}}({{arity + 10}});
                      }
-
-                     [Test]
-                     public async Task MapT{{arity}}Async_Should_RemainUnmodified_WhenOtherArity()
-                     {
-                         var union = MakeT{{otherArity}}({{otherArity}});
-                         var result = await union.MapT{{arity}}Async(u{{arity}} => ShouldNotBeCalledAsync(u{{arity}}));
+                 {{string.Join("\n", _arities.Where(a => a != arity).Select(a => NotInvokeAsync(a, arity)))}}
                  
-                         result.ShouldBeT{{otherArity}}().Value.ShouldBe({{otherArity}});
-                     }
 
                      [Test]
-                     public async Task MapT{{arity}}Async_Throws_When_T{{arity}}_Mapper_ReturnsNull()
+                     public async Task MapT{{arity}}Async_Throws_When_T{{arity}}_Map_ReturnsNull()
                      {
                          var union = MakeT{{arity}}({{arity}});
                          
-                         await Should.ThrowAsync<ArgumentNullException>(() => union.MapT{{arity}}Async(null!));
+                         await Should.ThrowAsync<ArgumentNullException>(() => union.MapT{{arity}}Async(u{{arity}} => NullAsyncFunc(u{{arity}}.Value)));
                      }
                  """;
+    }
+
+    private static string NotInvokeAsync(int otherArity, int testedArity)
+    {
+        return $$"""
+
+                [Test]
+                public async Task MapT{{testedArity}}Async_Should_NotInvoke_WhenT{{otherArity}}()
+                {
+                    var union = MakeT{{otherArity}}({{otherArity}});
+
+                    var result = await union.MapT{{testedArity}}Async(u{{testedArity}} => ShouldNotBeCalledAsync(u{{testedArity}}.Value));
+
+                    result.ShouldBeT{{otherArity}}().Value.ShouldBe({{otherArity}});
+                }
+            """;
     }
 
     private static string TaskMapT(int arity)
@@ -125,13 +144,13 @@ internal static class MapPartialExtensionsTestsGenerator
         return $$"""
 
                      [Test]
-                     public async Task TaskMapT{{arity}}_Should_Invoke_T{{arity}}_Mapper()
+                     public async Task TaskMapT{{arity}}_Should_Invoke_T{{arity}}_Map()
                      {
                          var task = Task.FromResult(MakeT{{arity}}({{arity}}));
 
-                         var result = await task.MapT{{arity}}(u{{arity}} => new U{{arity}}(u{{arity}}.Value + 10));
+                         var result = await task.MapT{{arity}}(u{{arity}} => u{{arity}}.Value + 10);
                          
-                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
+                         result.ShouldBeT{{arity}}({{arity + 10}});
                      }
                  """;
     }
@@ -142,13 +161,13 @@ internal static class MapPartialExtensionsTestsGenerator
         return $$"""
 
                      [Test]
-                     public async Task TaskMapT{{arity}}Async_Should_Invoke_T{{arity}}_Mapper()
+                     public async Task TaskMapT{{arity}}Async_Should_Invoke_T{{arity}}_Map()
                      {
                          var task = Task.FromResult(MakeT{{arity}}({{arity}}));
 
-                         var result = await task.MapT{{arity}}Async(u{{arity}} => Task.FromResult(new U{{arity}}(u{{arity}}.Value + 10)));
+                         var result = await task.MapT{{arity}}Async(u{{arity}} => Task.FromResult(u{{arity}}.Value + 10));
                          
-                         result.ShouldBeT{{arity}}().Value.ShouldBe({{arity + 10}});
+                         result.ShouldBeT{{arity}}({{arity + 10}});
                      }
                  """;
     }
