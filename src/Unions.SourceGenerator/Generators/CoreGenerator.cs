@@ -42,6 +42,8 @@ internal static class CoreGenerator
 
                     internal static {{model.Name}} FromUnion({{model.BackingUnionType}} union) => new(union);
 
+                    internal static async Task<{{model.Name}}> FromUnionAsync(Task<{{model.BackingUnionType}}> unionTask) => new(await unionTask);
+
                     public static implicit operator {{model.Name}}({{model.BackingUnionType}} union) => FromUnion(union);
                 }
                 """;

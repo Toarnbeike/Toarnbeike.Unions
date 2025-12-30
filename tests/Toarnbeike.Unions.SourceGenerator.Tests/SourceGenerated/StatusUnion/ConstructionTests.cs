@@ -10,7 +10,7 @@ public class ConstructionTests
         var status = Status.Active(new Active("Running"));
         status.IsActive.ShouldBeTrue();
         status.TryGetActive(out var active).ShouldBeTrue();
-        active.Description.ShouldBe("Running");
+        active!.Description.ShouldBe("Running");
     }
 
     [Test]
@@ -19,7 +19,7 @@ public class ConstructionTests
         var status = Status.Retry(new Retry(3));
         status.IsRetry.ShouldBeTrue();
         status.TryGetRetry(out var retry).ShouldBeTrue();
-        retry.Attempt.ShouldBe(3);
+        retry!.Attempt.ShouldBe(3);
     }
 
     [Test]
@@ -29,6 +29,6 @@ public class ConstructionTests
         var status = Status.Aborted(new Aborted(dateTime));
         status.IsAborted.ShouldBeTrue();
         status.TryGetAborted(out var aborted).ShouldBeTrue();
-        aborted.CancellationDateTime.ShouldBe(dateTime);
+        aborted!.CancellationDateTime.ShouldBe(dateTime);
     }
 }
