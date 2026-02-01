@@ -35,7 +35,7 @@ internal static class MapPartialExtensionsGenerator
         var genericArgs = $"<{string.Join(", ", arities.Select(i => $"T{i}"))}>";
         return $$"""
 
-                     #region Mapion Extensions for Union{{genericArgs}}
+                     #region Map Extensions for Union{{genericArgs}}
 
                      extension{{genericArgs}}(Union{{genericArgs}} union)
                      {
@@ -64,7 +64,7 @@ internal static class MapPartialExtensionsGenerator
                         /// <param name="map">The mapping function to apply.</param>
                         public Union{{newArgs}} MapT{{arity}}<TNew>(Func<T{{arity}}, TNew> map)
                         {
-                            ArgumentNullException.ThrowIfNull(mapping);
+                            ArgumentNullException.ThrowIfNull(map);
 
                             return union.Match(
                                {{string.Join(",\n              ", arities.Select(i => MatchLine(i, newArgs, i == arity)))}}
@@ -84,7 +84,7 @@ internal static class MapPartialExtensionsGenerator
                         /// <param name="mapAsync">The mapping function to apply.</param>
                         public Task<Union{{newArgs}}> MapT{{arity}}Async<TNew>(Func<T{{arity}}, Task<TNew>> mapAsync)
                         {
-                            ArgumentNullException.ThrowIfNull(mappingAsync);
+                            ArgumentNullException.ThrowIfNull(mapAsync);
 
                             return union.MatchAsync(
                                {{string.Join(",\n              ", arities.Select(i => MatchLineAsync(i, newArgs, i == arity)))}}

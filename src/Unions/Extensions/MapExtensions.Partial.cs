@@ -18,7 +18,7 @@ namespace Toarnbeike.Unions.Generic.Extensions;
 /// </remarks>
 public static partial class MapExtensions
 {
-    #region Mapion Extensions for Union<T1, T2>
+    #region Map Extensions for Union<T1, T2>
 
     extension<T1, T2>(Union<T1, T2> union)
     {
@@ -29,7 +29,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2>.FromT1(map(t1)),
@@ -43,7 +43,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew>.FromT1,
@@ -57,7 +57,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -71,7 +71,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew>.FromT1(t1)),
@@ -126,7 +126,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3>
+    #region Map Extensions for Union<T1, T2, T3>
 
     extension<T1, T2, T3>(Union<T1, T2, T3> union)
     {
@@ -137,7 +137,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3>.FromT1(map(t1)),
@@ -152,7 +152,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3>.FromT1,
@@ -167,7 +167,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew>.FromT1,
@@ -182,7 +182,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2, T3>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2, T3>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -197,7 +197,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew, T3>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew, T3>.FromT1(t1)),
@@ -212,7 +212,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, TNew>> MapT3Async<TNew>(Func<T3, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, TNew>.FromT1(t1)),
@@ -288,7 +288,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3, T4>
+    #region Map Extensions for Union<T1, T2, T3, T4>
 
     extension<T1, T2, T3, T4>(Union<T1, T2, T3, T4> union)
     {
@@ -299,7 +299,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3, T4> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3, T4>.FromT1(map(t1)),
@@ -315,7 +315,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3, T4> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3, T4>.FromT1,
@@ -331,7 +331,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew, T4> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew, T4>.FromT1,
@@ -347,7 +347,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, TNew> MapT4<TNew>(Func<T4, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, TNew>.FromT1,
@@ -363,7 +363,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2, T3, T4>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2, T3, T4>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -379,7 +379,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew, T3, T4>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew, T3, T4>.FromT1(t1)),
@@ -395,7 +395,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, TNew, T4>> MapT3Async<TNew>(Func<T3, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, TNew, T4>.FromT1(t1)),
@@ -411,7 +411,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, TNew>> MapT4Async<TNew>(Func<T4, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, TNew>.FromT1(t1)),
@@ -508,7 +508,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3, T4, T5>
+    #region Map Extensions for Union<T1, T2, T3, T4, T5>
 
     extension<T1, T2, T3, T4, T5>(Union<T1, T2, T3, T4, T5> union)
     {
@@ -519,7 +519,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3, T4, T5> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3, T4, T5>.FromT1(map(t1)),
@@ -536,7 +536,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3, T4, T5> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3, T4, T5>.FromT1,
@@ -553,7 +553,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew, T4, T5> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew, T4, T5>.FromT1,
@@ -570,7 +570,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, TNew, T5> MapT4<TNew>(Func<T4, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, TNew, T5>.FromT1,
@@ -587,7 +587,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, TNew> MapT5<TNew>(Func<T5, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, TNew>.FromT1,
@@ -604,7 +604,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2, T3, T4, T5>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2, T3, T4, T5>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -621,7 +621,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew, T3, T4, T5>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew, T3, T4, T5>.FromT1(t1)),
@@ -638,7 +638,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, TNew, T4, T5>> MapT3Async<TNew>(Func<T3, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, TNew, T4, T5>.FromT1(t1)),
@@ -655,7 +655,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, TNew, T5>> MapT4Async<TNew>(Func<T4, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, TNew, T5>.FromT1(t1)),
@@ -672,7 +672,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, TNew>> MapT5Async<TNew>(Func<T5, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, TNew>.FromT1(t1)),
@@ -790,7 +790,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3, T4, T5, T6>
+    #region Map Extensions for Union<T1, T2, T3, T4, T5, T6>
 
     extension<T1, T2, T3, T4, T5, T6>(Union<T1, T2, T3, T4, T5, T6> union)
     {
@@ -801,7 +801,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3, T4, T5, T6> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3, T4, T5, T6>.FromT1(map(t1)),
@@ -819,7 +819,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3, T4, T5, T6> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3, T4, T5, T6>.FromT1,
@@ -837,7 +837,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew, T4, T5, T6> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew, T4, T5, T6>.FromT1,
@@ -855,7 +855,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, TNew, T5, T6> MapT4<TNew>(Func<T4, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, TNew, T5, T6>.FromT1,
@@ -873,7 +873,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, TNew, T6> MapT5<TNew>(Func<T5, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, TNew, T6>.FromT1,
@@ -891,7 +891,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, TNew> MapT6<TNew>(Func<T6, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, TNew>.FromT1,
@@ -909,7 +909,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2, T3, T4, T5, T6>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2, T3, T4, T5, T6>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -927,7 +927,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew, T3, T4, T5, T6>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew, T3, T4, T5, T6>.FromT1(t1)),
@@ -945,7 +945,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, TNew, T4, T5, T6>> MapT3Async<TNew>(Func<T3, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, TNew, T4, T5, T6>.FromT1(t1)),
@@ -963,7 +963,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, TNew, T5, T6>> MapT4Async<TNew>(Func<T4, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, TNew, T5, T6>.FromT1(t1)),
@@ -981,7 +981,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, TNew, T6>> MapT5Async<TNew>(Func<T5, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, TNew, T6>.FromT1(t1)),
@@ -999,7 +999,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, T5, TNew>> MapT6Async<TNew>(Func<T6, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, T5, TNew>.FromT1(t1)),
@@ -1138,7 +1138,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3, T4, T5, T6, T7>
+    #region Map Extensions for Union<T1, T2, T3, T4, T5, T6, T7>
 
     extension<T1, T2, T3, T4, T5, T6, T7>(Union<T1, T2, T3, T4, T5, T6, T7> union)
     {
@@ -1149,7 +1149,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3, T4, T5, T6, T7> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3, T4, T5, T6, T7>.FromT1(map(t1)),
@@ -1168,7 +1168,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3, T4, T5, T6, T7> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3, T4, T5, T6, T7>.FromT1,
@@ -1187,7 +1187,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew, T4, T5, T6, T7> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew, T4, T5, T6, T7>.FromT1,
@@ -1206,7 +1206,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, TNew, T5, T6, T7> MapT4<TNew>(Func<T4, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, TNew, T5, T6, T7>.FromT1,
@@ -1225,7 +1225,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, TNew, T6, T7> MapT5<TNew>(Func<T5, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, TNew, T6, T7>.FromT1,
@@ -1244,7 +1244,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, TNew, T7> MapT6<TNew>(Func<T6, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, TNew, T7>.FromT1,
@@ -1263,7 +1263,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, T6, TNew> MapT7<TNew>(Func<T7, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, T6, TNew>.FromT1,
@@ -1282,7 +1282,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<TNew, T2, T3, T4, T5, T6, T7>> MapT1Async<TNew>(Func<T1, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   async t1 => Union<TNew, T2, T3, T4, T5, T6, T7>.FromT1(await mapAsync(t1).ConfigureAwait(false)),
@@ -1301,7 +1301,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, TNew, T3, T4, T5, T6, T7>> MapT2Async<TNew>(Func<T2, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, TNew, T3, T4, T5, T6, T7>.FromT1(t1)),
@@ -1320,7 +1320,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, TNew, T4, T5, T6, T7>> MapT3Async<TNew>(Func<T3, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, TNew, T4, T5, T6, T7>.FromT1(t1)),
@@ -1339,7 +1339,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, TNew, T5, T6, T7>> MapT4Async<TNew>(Func<T4, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, TNew, T5, T6, T7>.FromT1(t1)),
@@ -1358,7 +1358,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, TNew, T6, T7>> MapT5Async<TNew>(Func<T5, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, TNew, T6, T7>.FromT1(t1)),
@@ -1377,7 +1377,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, T5, TNew, T7>> MapT6Async<TNew>(Func<T6, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, T5, TNew, T7>.FromT1(t1)),
@@ -1396,7 +1396,7 @@ public static partial class MapExtensions
        /// <param name="mapAsync">The mapping function to apply.</param>
        public Task<Union<T1, T2, T3, T4, T5, T6, TNew>> MapT7Async<TNew>(Func<T7, Task<TNew>> mapAsync)
        {
-           ArgumentNullException.ThrowIfNull(mappingAsync);
+           ArgumentNullException.ThrowIfNull(mapAsync);
 
            return union.MatchAsync(
                   t1 => Task.FromResult(Union<T1, T2, T3, T4, T5, T6, TNew>.FromT1(t1)),
@@ -1556,7 +1556,7 @@ public static partial class MapExtensions
 
     #endregion
 
-    #region Mapion Extensions for Union<T1, T2, T3, T4, T5, T6, T7, T8>
+    #region Map Extensions for Union<T1, T2, T3, T4, T5, T6, T7, T8>
 
     extension<T1, T2, T3, T4, T5, T6, T7, T8>(Union<T1, T2, T3, T4, T5, T6, T7, T8> union)
     {
@@ -1567,7 +1567,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<TNew, T2, T3, T4, T5, T6, T7, T8> MapT1<TNew>(Func<T1, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               t1 => Union<TNew, T2, T3, T4, T5, T6, T7, T8>.FromT1(map(t1)),
@@ -1587,7 +1587,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, TNew, T3, T4, T5, T6, T7, T8> MapT2<TNew>(Func<T2, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, TNew, T3, T4, T5, T6, T7, T8>.FromT1,
@@ -1607,7 +1607,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, TNew, T4, T5, T6, T7, T8> MapT3<TNew>(Func<T3, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, TNew, T4, T5, T6, T7, T8>.FromT1,
@@ -1627,7 +1627,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, TNew, T5, T6, T7, T8> MapT4<TNew>(Func<T4, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, TNew, T5, T6, T7, T8>.FromT1,
@@ -1647,7 +1647,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, TNew, T6, T7, T8> MapT5<TNew>(Func<T5, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, TNew, T6, T7, T8>.FromT1,
@@ -1667,7 +1667,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, TNew, T7, T8> MapT6<TNew>(Func<T6, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, TNew, T7, T8>.FromT1,
@@ -1687,7 +1687,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, T6, TNew, T8> MapT7<TNew>(Func<T7, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, T6, TNew, T8>.FromT1,
@@ -1707,7 +1707,7 @@ public static partial class MapExtensions
        /// <param name="map">The mapping function to apply.</param>
        public Union<T1, T2, T3, T4, T5, T6, T7, TNew> MapT8<TNew>(Func<T8, TNew> map)
        {
-           ArgumentNullException.ThrowIfNull(mapping);
+           ArgumentNullException.ThrowIfNull(map);
 
            return union.Match(
               Union<T1, T2, T3, T4, T5, T6, T7, TNew>.FromT1,
