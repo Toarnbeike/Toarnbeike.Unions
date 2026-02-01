@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" >
 
 	<PropertyGroup>
+		<RootNamespace>Toarnbeike.Unions.Generic</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<PackageId>Toarnbeike.Unions</PackageId>
 		<!-- Version is managed centrally in Directory.build.props to keep versions in sync.-->
 		<Description>Immutable, allocation-free Union types for C#, inspired by functional programming and discriminated unions. </Description>

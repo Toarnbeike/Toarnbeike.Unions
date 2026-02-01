@@ -1,4 +1,4 @@
-﻿namespace Toarnbeike.Unions.TestExtensions;
+﻿namespace Toarnbeike.Unions.Generic.TestExtensions;
 
 /// <summary>
 /// Exception thrown when an assertion fails.

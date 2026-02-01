@@ -1,4 +1,4 @@
-﻿using Toarnbeike.Unions.Generators;
+﻿using Toarnbeike.Unions.Tests.Generators;
 
 const int MinArity = 2;
 const int MaxArity = 15; // values above 15 are untested, increase at own risk.

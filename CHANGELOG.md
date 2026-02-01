@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+<a id="v1-3-0"></a>
+## [1.3.0] - 2026-02-01
+
+### Changed
+- All `Union<T1 ... Tn>` methods and extensions are moved to the `Toarnbeike.Unions.Generic` namespace.
+  This gives space for the source generated Unions to go to the `Toarnbeike.Unions.Nominal` namespace.
+  By applying this change now before the Nominal extensions are out, the migration is much easier.
+
+#### Migration
+- Replace all `using Toarnbeike.Unions.*` with `using Toarnbeike.Unions.Generic.*`.
+
+### Fixed
+- Missing closings of Xml comments.
+- Mapping parameter names
+- Convert into method group where possible.
+
 <a id="v1-2-0"></a>
 ## [1.2.0] - 2025-12-30
 

@@ -32,7 +32,7 @@ static int Generate(int upperBound)
 
     Console.WriteLine("Generating switch extensions");
     var switches = SwitchExtensionsGenerator.Generate(range);
-    //File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/SwitchExtensions.cs"), switches);
 
     Console.WriteLine("Generating map extensions");
     var mapFull = MapFullExtensionsGenerator.Generate(range);
