@@ -6,17 +6,16 @@
 
 This package provides **immutable, allocation-free union types** for C#, inspired by functional programming and discriminated unions, while remaining idiomatic to the .NET ecosystem.
 
-A `Union<T1, …, Tn>` represents a value that can be exactly one of several possible types at runtime, without relying on inheritance, nulls, or exceptions for control flow.
+A `Union<T1, ..., Tn>` represents a value that can be exactly one of several possible types at runtime, without relying on inheritance, nulls, or exceptions for control flow.
 This is particularly useful for modeling domain states and workflows where a value can be in one of a fixed set of alternatives.
 
 ## Features
-- Generated Union types with 2 to 8 type parameters (expandable via included generators)
+- Generated Union types with 2 to 8 generic type parameters (expandable via included generators)
 - Explicit construction and state inspection
 - Rich functional extensions (Map, Bind, Match, Switch, Tap)
 - Async support for all extensions
 - Collection extensions for partitioning
 - Test extensions for fluent assertions
-- Comprehensive XML documentation and usage examples
 - Unit tested with high code coverage
 
 ---
@@ -39,8 +38,8 @@ This is particularly useful for modeling domain states and workflows where a val
 This example demonstrates the most common workflow when using unions: construction, transformation, and consumption.
 
 ```csharp
-using Toarnbeike.Unions;
-using Toarnbeike.Unions.Extensions;
+using Toarnbeike.Unions.Generic;
+using Toarnbeike.Unions.Generic.Extensions;
 
 Union<int, string> value = Union<int, string>.FromT1(10);
 
@@ -238,7 +237,7 @@ Unions are a powerful modeling tool, but they are intentionally not universal.
 
 ## Conclusion
 
-`Union<T1, …, Tn>` enables:
+`Union<T1, ..., Tn>` enables:
 - Strongly typed alternatives
 - Exhaustive handling
 - Functional transformations
