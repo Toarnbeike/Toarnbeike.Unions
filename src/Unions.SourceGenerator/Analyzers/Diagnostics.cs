@@ -1,7 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
 
-namespace Toarnbeike.Unions.Analyzers;
+namespace Toarnbeike.Unions.SourceGenerator.Analyzers;
 
 internal static class Diagnostics
 {
@@ -96,15 +96,15 @@ internal static class Diagnostics
         );
 
     public static ImmutableArray<DiagnosticDescriptor> All { get; } =
-        ImmutableArray.Create(
-            TooFewCases,
-            DuplicateCase,
-            InvalidCaseType,
-            UnionMustBePartial,
-            UnionCaseMustBeRecord,
-            UnionCaseMustBeConcrete,
-            UnionCaseMustBeNonGeneric,
-            UnionCaseMustBeUnnested
-        );
+    [
+        TooFewCases,
+        DuplicateCase,
+        InvalidCaseType,
+        UnionMustBePartial,
+        UnionCaseMustBeRecord,
+        UnionCaseMustBeConcrete,
+        UnionCaseMustBeNonGeneric,
+        UnionCaseMustBeUnnested
+    ];
 }
 

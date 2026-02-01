@@ -1,8 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Toarnbeike.Unions.SourceGenerator.Model;
 
-namespace Toarnbeike.Unions.Generators;
-
-using Toarnbeike.Unions.Model;
+namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
 internal static class TestExtensionsGenerator
 {
@@ -18,12 +16,13 @@ internal static class TestExtensionsGenerator
             //   This is an auto-generated file. Do not modify.
             // </auto-generated>
             
-            using Toarnbeike.Unions;
-            using Toarnbeike.Unions.Extensions;
+            using Toarnbeike.Unions.Generic;
+            using Toarnbeike.Unions.Generic.Extensions;
+            using Toarnbeike.Unions.Generic.TestExtensions;
             using {{model.Namespace}};
             {{model.CaseUsings}}
 
-            namespace Toarnbeike.Unions.TestExtensions;
+            namespace Toarnbeike.Unions.Nominal.TestExtensions;
 
             public static class {{model.Name}}TestExtensions
             {

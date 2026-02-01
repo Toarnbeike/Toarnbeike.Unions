@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
-using Toarnbeike.Unions.Utilities;
+using Toarnbeike.Unions.SourceGenerator.Utilities;
 
-namespace Toarnbeike.Unions.Model;
+namespace Toarnbeike.Unions.SourceGenerator.Model;
 
 internal sealed record UnionCaseModel
 {

@@ -1,4 +1,4 @@
-﻿namespace Toarnbeike.Unions;
+﻿namespace Toarnbeike.Unions.SourceGenerator;
 
 /// <summary>
 /// Specifies a union case type for a class, indicating to the source generator to add the <paramref name="caseType"/> to the generated Union.

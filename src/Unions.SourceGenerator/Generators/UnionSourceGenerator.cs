@@ -1,11 +1,11 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using System.Text;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using System.Collections.Immutable;
-using System.Text;
-using Toarnbeike.Unions.Model;
+using Toarnbeike.Unions.SourceGenerator.Model;
 
-namespace Toarnbeike.Unions.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
 [Generator]
 public sealed class UnionSourceGenerator : IIncrementalGenerator
@@ -30,28 +30,21 @@ public sealed class UnionSourceGenerator : IIncrementalGenerator
     }
 
     private static bool IsCandidate(SyntaxNode node)
-        => node is ClassDeclarationSyntax cds && cds.AttributeLists.Count > 0;
+        => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 };
 
     private static INamedTypeSymbol? GetSemanticTarget(GeneratorSyntaxContext context)
     {
         var classSyntax = (ClassDeclarationSyntax)context.Node;
         var symbol = context.SemanticModel.GetDeclaredSymbol(classSyntax);
-        var unionCaseAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(typeof(UnionCaseAttribute).FullName);
+        var unionCaseAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(typeof(UnionCaseAttribute).FullName!);
 
         if (symbol is not INamedTypeSymbol namedType)
         {
             return null;
         }
 
-        foreach (var attribute in namedType.GetAttributes())
-        {
-            if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, unionCaseAttributeSymbol))
-            {
-                return namedType;
-            }
-        }
-
-        return null;
+        return Enumerable.Any(namedType.GetAttributes(), attribute => SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, unionCaseAttributeSymbol)) 
+            ? namedType : null;
     }
 
     private static void Execute(Compilation compilation, ImmutableArray<INamedTypeSymbol?> classes, SourceProductionContext context)

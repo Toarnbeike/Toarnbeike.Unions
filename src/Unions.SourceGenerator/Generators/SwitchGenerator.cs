@@ -1,9 +1,7 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Toarnbeike.Unions.SourceGenerator.Model;
 
-namespace Toarnbeike.Unions.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
-using Toarnbeike.Unions.Model;
- 
 internal static class SwitchGenerator
 {
     public static string Execute(UnionModel model)
@@ -30,8 +28,8 @@ internal static class SwitchGenerator
             //   This is an auto-generated file. Do not modify.
             // </auto-generated>
             
-            using Toarnbeike.Unions;
-            using Toarnbeike.Unions.Extensions;
+            using Toarnbeike.Unions.Generic;
+            using Toarnbeike.Unions.Generic.Extensions;
             {{model.CaseUsings}}
 
             namespace {{model.Namespace}};

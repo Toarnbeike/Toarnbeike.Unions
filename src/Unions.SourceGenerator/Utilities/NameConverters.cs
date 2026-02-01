@@ -1,4 +1,4 @@
-﻿namespace Toarnbeike.Unions.Utilities;
+﻿namespace Toarnbeike.Unions.SourceGenerator.Utilities;
 
 internal static class NameConverters
 {

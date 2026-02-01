@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.Testing;
 using Toarnbeike.Unions.Utilities;
 
-namespace Toarnbeike.Unions.Diagnositcs;
+namespace Toarnbeike.Unions.Diagnostics;
 
 public class UnionValidationTests
 {

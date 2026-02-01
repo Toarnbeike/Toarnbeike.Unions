@@ -1,6 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Testing;
-using Toarnbeike.Unions.Analyzers;
+using Toarnbeike.Unions.SourceGenerator.Analyzers;
 
 namespace Toarnbeike.Unions.Utilities;
 

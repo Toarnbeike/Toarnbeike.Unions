@@ -1,7 +1,9 @@
-﻿namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
+﻿using Toarnbeike.Unions.Nominal.TestExtensions;
+
+namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
 
 using Toarnbeike.Unions.SourceGenerated.Complex;
-using Toarnbeike.Unions.TestExtensions;
+using Toarnbeike.Unions.Generic.TestExtensions;
 
 public class TestExtensionsTests
 {

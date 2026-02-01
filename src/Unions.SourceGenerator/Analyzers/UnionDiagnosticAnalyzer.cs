@@ -1,8 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
-using System.Collections.Immutable;
 
-namespace Toarnbeike.Unions.Analyzers;
+namespace Toarnbeike.Unions.SourceGenerator.Analyzers;
 
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public class UnionDiagnosticAnalyzer : DiagnosticAnalyzer

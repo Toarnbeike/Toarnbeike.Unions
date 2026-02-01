@@ -1,8 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Toarnbeike.Unions.SourceGenerator.Model;
 
-namespace Toarnbeike.Unions.Generators;
-
-using Toarnbeike.Unions.Model;
+namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
 internal static class MapGenerator
 {
@@ -18,8 +16,8 @@ internal static class MapGenerator
             //   This is an auto-generated file. Do not modify.
             // </auto-generated>
             
-            using Toarnbeike.Unions;
-            using Toarnbeike.Unions.Extensions;
+            using Toarnbeike.Unions.Generic;
+            using Toarnbeike.Unions.Generic.Extensions;
             {{model.CaseUsings}}
             
             namespace {{model.Namespace}};

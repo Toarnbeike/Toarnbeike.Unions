@@ -1,8 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
-using System.Collections.Immutable;
-using Toarnbeike.Unions.Utilities;
+﻿using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
+using Toarnbeike.Unions.SourceGenerator.Utilities;
 
-namespace Toarnbeike.Unions.Model;
+namespace Toarnbeike.Unions.SourceGenerator.Model;
 
 internal sealed record UnionModel
 {

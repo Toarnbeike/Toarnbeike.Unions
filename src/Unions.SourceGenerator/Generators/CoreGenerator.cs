@@ -1,9 +1,9 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
+using Toarnbeike.Unions.SourceGenerator.Model;
 
-namespace Toarnbeike.Unions.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
-using Toarnbeike.Unions.Model;
 internal static class CoreGenerator
 {
     public static string Execute(UnionModel model)
@@ -20,7 +20,7 @@ internal static class CoreGenerator
                 
                 using System.Diagnostics;
                 using System.Diagnostics.CodeAnalysis;
-                using Toarnbeike.Unions;
+                using Toarnbeike.Unions.Generic;
                 {{model.CaseUsings}}
 
                 namespace {{model.Namespace}};

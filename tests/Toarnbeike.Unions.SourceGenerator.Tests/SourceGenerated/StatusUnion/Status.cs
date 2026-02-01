@@ -1,4 +1,5 @@
 ﻿using Toarnbeike.Unions.SourceGenerated.Complex;
+using Toarnbeike.Unions.SourceGenerator;
 
 namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
 

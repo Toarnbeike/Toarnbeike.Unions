@@ -2,11 +2,11 @@
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
-namespace Toarnbeike.Unions.Analyzers;
+namespace Toarnbeike.Unions.SourceGenerator.Analyzers;
 
 internal static class UnionAnalyzer
 {
-    public static bool _errorsDetected;
+    public static bool ErrorsDetected;
 
     /// <summary>
     /// Analyse if the union definition is valid.
@@ -17,7 +17,7 @@ internal static class UnionAnalyzer
     /// <param name="context">The SourceProductionContext used to report diagnostics.</param>
     public static void ValidateUnion(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context)
     {
-        _errorsDetected = false;
+        ErrorsDetected = false;
         CheckT004_UnionMustBePartial(unionSymbol, context);
 
         var cases = unionSymbol.GetAttributes()
@@ -33,12 +33,12 @@ internal static class UnionAnalyzer
         CheckT002_DuplicateCases(unionSymbol, context, caseTypes);
         CheckT003_InvalidCaseType(unionSymbol, context, caseTypes);
 
-        if (_errorsDetected) return;
+        if (ErrorsDetected) return;
         CheckT006_UnionCaseMustBeConcrete(unionSymbol, context, caseTypes);
         CheckT007_UnionCaseMustBeNonGeneric(unionSymbol, context, caseTypes);
         CheckT008_UnionCaseMustBeNonNested(unionSymbol, context, caseTypes);
 
-        if (_errorsDetected) return;
+        if (ErrorsDetected) return;
         CheckT005_UnionCaseShouldBeRecord(unionSymbol, context, caseTypes);
     }
 
@@ -52,7 +52,7 @@ internal static class UnionAnalyzer
                     unionSymbol.Locations.First(),
                     unionSymbol.Name));
 
-            _errorsDetected = true;
+            ErrorsDetected = true;
         }
     }
 
@@ -70,24 +70,21 @@ internal static class UnionAnalyzer
                     unionSymbol.Locations.First(),
                     dup.Key?.Name));
 
-            _errorsDetected = true;
+            ErrorsDetected = true;
         }
     }
 
     private static void CheckT003_InvalidCaseType(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
-        foreach (var type in caseTypes)
+        foreach (var type in caseTypes.Where(type => type is null || type.SpecialType is SpecialType.System_Object))
         {
-            if (type is null || type.SpecialType is SpecialType.System_Object)
-            {
-                context.ReportDiagnostic(
-                    Diagnostic.Create(
-                        Diagnostics.InvalidCaseType,
-                        unionSymbol.Locations.First(),
-                        type?.Name ?? "null"));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    Diagnostics.InvalidCaseType,
+                    unionSymbol.Locations.First(),
+                    type?.Name ?? "null"));
 
-                _errorsDetected = true;
-            }
+            ErrorsDetected = true;
         }
     }
 
@@ -104,24 +101,21 @@ internal static class UnionAnalyzer
                     unionSymbol.Locations.First(),
                     unionSymbol.Name));
 
-            _errorsDetected = true;
+            ErrorsDetected = true;
         }
     }
 
     private static void CheckT005_UnionCaseShouldBeRecord(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
-        foreach (var caseTypeSymbol in caseTypes)
+        foreach (var caseTypeSymbol in caseTypes.Where(caseTypeSymbol => !caseTypeSymbol!.IsRecord))
         {
-            if (!caseTypeSymbol!.IsRecord)
-            {
-                context.ReportDiagnostic(
-                    Diagnostic.Create(
-                        Diagnostics.UnionCaseMustBeRecord,
-                        unionSymbol.Locations.First(),
-                        caseTypeSymbol.Name));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    Diagnostics.UnionCaseMustBeRecord,
+                    unionSymbol.Locations.First(),
+                    caseTypeSymbol?.Name));
 
-                _errorsDetected = true;
-            }
+            ErrorsDetected = true;
         }
     }
 
@@ -137,25 +131,22 @@ internal static class UnionAnalyzer
                         unionSymbol.Locations.First(),
                         caseTypeSymbol.Name));
 
-                _errorsDetected = true;
+                ErrorsDetected = true;
             }
         }
     }
 
     private static void CheckT007_UnionCaseMustBeNonGeneric(INamedTypeSymbol unionSymbol, SymbolAnalysisContext context, List<INamedTypeSymbol?> caseTypes)
     {
-        foreach (var caseTypeSymbol in caseTypes)
+        foreach (var caseTypeSymbol in caseTypes.Where(caseTypeSymbol => caseTypeSymbol!.IsGenericType))
         {
-            if (caseTypeSymbol!.IsGenericType)
-            {
-                context.ReportDiagnostic(
-                    Diagnostic.Create(
-                        Diagnostics.UnionCaseMustBeNonGeneric,
-                        unionSymbol.Locations.First(),
-                        caseTypeSymbol.Name));
+            context.ReportDiagnostic(
+                Diagnostic.Create(
+                    Diagnostics.UnionCaseMustBeNonGeneric,
+                    unionSymbol.Locations.First(),
+                    caseTypeSymbol?.Name));
 
-                _errorsDetected = true;
-            }
+            ErrorsDetected = true;
         }
     }
 
@@ -171,7 +162,7 @@ internal static class UnionAnalyzer
                         unionSymbol.Locations.First(),
                         caseTypeSymbol.Name));
 
-                _errorsDetected = true;
+                ErrorsDetected = true;
             }
         }
     }
