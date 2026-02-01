@@ -3,7 +3,7 @@
 namespace Toarnbeike.Unions.Generators;
 
 /// <summary>
-/// Generates the core Union{T1..Tn} types.
+/// Generates the core Union{T1…Tn} types.
 /// This code is build-time tooling; readability and determinism are preferred over abstraction.
 /// </summary>
 internal static class UnionGenerator
@@ -16,7 +16,7 @@ internal static class UnionGenerator
             using System.Diagnostics;
             using System.Diagnostics.CodeAnalysis;
 
-            namespace Toarnbeike.Unions;
+            namespace Toarnbeike.Unions.Generic;
             {string.Join("\n", arities.Select(GenerateUnion))}
             """;
     }
@@ -28,7 +28,7 @@ internal static class UnionGenerator
 
         return $$"""
 
-                 #region  Union{{genericArgs}}
+                 #region Union{{genericArgs}}
 
                  /// <summary>
                  /// Union type with {{arity}} variants.
@@ -69,7 +69,6 @@ internal static class UnionGenerator
                          };
                      }
                  }
-
                  #endregion
                  """;
     }
@@ -104,7 +103,7 @@ internal static class UnionGenerator
                     /// Gets the value of the union if it is in the T{arity} state; otherwise, throws an <see cref="InvalidOperationException"/>.
                     /// </summary>
                     /// <remarks>
-                    /// This method is explicitly internal. For external use, either use <see cref="TryGetT{arity}">, or the Match or Switch methods.
+                    /// This method is explicitly internal. For external use, either use <see cref="TryGetT{arity}"/>, or the Match or Switch methods.
                     /// </remarks>
                     /// <exception cref="InvalidOperationException">Thrown if the union is not in the T{arity} state.</exception>
                     internal T{arity} AsT{arity} => Index == {arity} ? (T{arity})_value : throw new InvalidOperationException("Union is not in T{arity} state.");
