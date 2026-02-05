@@ -1,13 +1,11 @@
-﻿using Toarnbeike.Unions.SourceGenerated.Complex;
-
-namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
+﻿namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
 
 public class MatchTests
 {
     [Test]
     public void Status_Match_Should_Work_ForActive()
     {
-        var status = Status.Active(new Active("Running"));
+        var status = Status.Active("Running");
 
         var result = status.Match(
             active => active.Description,
@@ -20,7 +18,7 @@ public class MatchTests
     [Test]
     public void Status_Match_Should_Work_ForRetry()
     {
-        var status = Status.Retry(new Retry(3));
+        var status = Status.Retry(3);
 
         var result = status.Match(
             active => active.Description,
@@ -34,7 +32,7 @@ public class MatchTests
     public void Status_Match_Should_Work_ForAborted()
     {
         var abortTime = DateTime.UtcNow;
-        var status = Status.Aborted(new Aborted(abortTime));
+        var status = Status.Aborted(abortTime);
 
         var result = status.Match(
             active => active.Description,
@@ -47,7 +45,7 @@ public class MatchTests
     [Test]
     public async Task Status_MatchAsync_Should_Work()
     {
-        var status = Status.Active(new Active("Running"));
+        var status = Status.Active("Running");
 
         var result = await status.MatchAsync(
             active => Task.FromResult(active.Description),
@@ -61,7 +59,7 @@ public class MatchTests
     [Test]
     public async Task StatusTask_Match_Should_Work()
     {
-        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+        var statusTask = Task.FromResult(Status.Active("Running"));
 
         var result = await statusTask.Match(
             active => active.Description,
@@ -74,7 +72,7 @@ public class MatchTests
     [Test]
     public async Task StatusTask_MatchAsync_Should_Work()
     {
-        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+        var statusTask = Task.FromResult(Status.Active("Running"));
 
         var result = await statusTask.MatchAsync(
             active => Task.FromResult(active.Description),

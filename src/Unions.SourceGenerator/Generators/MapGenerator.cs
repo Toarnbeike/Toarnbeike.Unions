@@ -1,5 +1,8 @@
 ﻿using Toarnbeike.Unions.SourceGenerator.Model;
 
+#pragma warning disable CS0162 // Unreachable code detected - Mapping of all branches at once is for now disabled, could later be reinstated.
+// ReSharper disable HeuristicUnreachableCode
+
 namespace Toarnbeike.Unions.SourceGenerator.Generators;
 
 internal static class MapGenerator
@@ -47,6 +50,7 @@ internal static class MapGenerator
 
     private static string GenerateMapExtension(UnionModel model)
     {
+        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
             $"Func<{c.TypeName}, {c.TypeName}> map{c.Name}"));
 
@@ -55,13 +59,13 @@ internal static class MapGenerator
 
         var arguments = string.Join(", ", model.Cases.Select(c => $"map{c.Name}"));
 
-        return $$"""
+        return $"""
                     /// <summary>
                     /// Apply mapping functions to the value stored in the union based on its current state.
                     /// </summary>
-                    {{xmlParameters}}
-                    public {{model.Name}} Map({{parameters}}) =>
-                        {{model.Name}}.FromUnion({{model.ArgumentName}}.AsUnion().Map({{arguments}}));
+                    {xmlParameters}
+                    public {model.Name} Map({parameters}) =>
+                        {model.Name}.FromUnion({model.ArgumentName}.AsUnion().Map({arguments}));
 
             """;
 
@@ -69,19 +73,20 @@ internal static class MapGenerator
     
     private static string GenerateMapTExtension(UnionModel model, UnionCaseModel caseModel)
     {
-        return $$"""
+        return $"""
                     /// <summary>
-                    /// Apply a mapping function to the value stored in the union if it is in the {{caseModel.Name}} state.
+                    /// Apply a mapping function to the value stored in the union if it is in the {caseModel.Name} state.
                     /// </summary>
                     /// <param name="map">The mapping function to apply.</param>
-                    public {{model.Name}} Map{{caseModel.Name}}(Func<{{caseModel.TypeName}}, {{caseModel.TypeName}}> map) =>
-                        {{model.Name}}.FromUnion({{model.ArgumentName}}.AsUnion().Map{{caseModel.BackingTypeName}}(map));
+                    public {model.Name} Map{caseModel.Name}(Func<{caseModel.TypeName}, {caseModel.TypeName}> map) =>
+                        {model.Name}.FromUnion({model.ArgumentName}.AsUnion().Map{caseModel.BackingTypeName}(map));
 
             """;
     }
 
     private static string GenerateMapAsyncExtension(UnionModel model)
     {
+        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
             $"Func<{c.TypeName}, Task<{c.TypeName}>> map{c.Name}Async"));
 
@@ -90,32 +95,33 @@ internal static class MapGenerator
 
         var arguments = string.Join(", ", model.Cases.Select(c => $"map{c.Name}Async"));
 
-        return $$"""
+        return $"""
                     /// <summary>
                     /// Apply async mapping functions to the value stored in the union bases on its current state.
                     /// </summary>
-                    {{xmlParameters}}
-                    public async Task<{{model.Name}}> MapAsync({{parameters}}) =>
-                        await {{model.Name}}.FromUnionAsync({{model.ArgumentName}}.AsUnion().MapAsync({{arguments}}));
+                    {xmlParameters}
+                    public async Task<{model.Name}> MapAsync({parameters}) =>
+                        await {model.Name}.FromUnionAsync({model.ArgumentName}.AsUnion().MapAsync({arguments}));
 
             """;
     }
 
     private static string GenerateMapTAsyncExtension(UnionModel model, UnionCaseModel caseModel)
     {
-        return $$"""
+        return $"""
                     /// <summary>
-                    /// Apply an async mapping function to the value stored in the union if it is in the {{caseModel.Name}} state.
+                    /// Apply an async mapping function to the value stored in the union if it is in the {caseModel.Name} state.
                     /// </summary>
                     /// <param name="mapAsync">The async mapping function to apply.</param>
-                    public async Task<{{model.Name}}> Map{{caseModel.Name}}Async(Func<{{caseModel.TypeName}}, Task<{{caseModel.TypeName}}>> mapAsync) =>
-                        await {{model.Name}}.FromUnionAsync({{model.ArgumentName}}.AsUnion().Map{{caseModel.BackingTypeName}}Async(mapAsync));
+                    public async Task<{model.Name}> Map{caseModel.Name}Async(Func<{caseModel.TypeName}, Task<{caseModel.TypeName}>> mapAsync) =>
+                        await {model.Name}.FromUnionAsync({model.ArgumentName}.AsUnion().Map{caseModel.BackingTypeName}Async(mapAsync));
             
             """;
     }
 
     private static string GenerateTaskMapExtension(UnionModel model)
     {
+        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
             $"Func<{c.TypeName}, {c.TypeName}> map{c.Name}"));
 
@@ -157,6 +163,7 @@ internal static class MapGenerator
 
     private static string GenerateTaskMapAsyncExtension(UnionModel model)
     {
+        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
             $"Func<{c.TypeName}, Task<{c.TypeName}>> map{c.Name}Async"));
 

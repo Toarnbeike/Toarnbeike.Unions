@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Toarnbeike.Unions.Utilities;
 
+// todo: move to generic source generator testing utilities library, to support reuse across multiple projects.
 internal sealed class ShouldlyVerifier : IVerifier
 {
     public void Equal<T>(T expected, T actual, string? message = null)

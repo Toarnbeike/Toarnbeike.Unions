@@ -57,11 +57,18 @@ internal static class CoreGenerator
         foreach (var caseModel in model.Cases)
         {
             sb.AppendLine($$"""
+             
+                 /// <summary>
+                 /// Creates a {{model.Name}} in the {{caseModel.Name}} state.
+                 /// </summary>
+                 {{caseModel.ConstructorParameters.GetXmlComments("\n        ")}}
+                 public static {{model.Name}} {{caseModel.Name}}({{caseModel.ConstructorParameters.GetAsParameters()}}) =>
+                     new({{model.BackingUnionType}}.FromT{{caseModel.Index}}(new {{caseModel.Name}}({{caseModel.ConstructorParameters.GetAsArguments()}})));
 
                  /// <summary>
                  /// Creates a new union instance by providing the {{caseModel.Name}} to store in it.
                  /// </summary>
-                 /// <param name="value">The {{caseModel.Name}}} to store in the union.</param>
+                 /// <param name="value">The {{caseModel.Name}} instance to store in the union.</param>
                  public static {{model.Name}} {{caseModel.Name}}({{caseModel.TypeName}} value)
                      => new({{model.BackingUnionType}}.FromT{{caseModel.Index}}(value));
              """);

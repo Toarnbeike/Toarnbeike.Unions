@@ -4,6 +4,8 @@ using Toarnbeike.Unions.SourceGenerator.Analyzers;
 
 namespace Toarnbeike.Unions.Utilities;
 
+// todo: move to generic source generator testing utilities library, to support reuse across multiple projects.
+// todo: would require some refactoring, the UnionCaseAttributeSource should be injectable.
 internal static class AnalyzerTest
 {
     private const string UnionCaseAttributeSource = """

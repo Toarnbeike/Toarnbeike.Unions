@@ -1,4 +1,4 @@
-﻿namespace Toarnbeike.Unions.SourceGenerated.Complex;
+﻿namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
 
 public record Active(string Description);
 public record Retry(int Attempt);

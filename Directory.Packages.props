@@ -1,15 +1,15 @@
 <Project>
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
-  <ItemGroup Label="SourceGenerator">
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.2" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.0.0" />
-  </ItemGroup>
-  <ItemGroup Label="Testsuite">
-    <PackageVersion Include="Shouldly" Version="4.3.0" />
-    <PackageVersion Include="TUnit" Version="1.5.70" />
-  </ItemGroup>
+	<PropertyGroup>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
+	<ItemGroup Label="SourceGenerator">
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.0.0" />
+	</ItemGroup>
+	<ItemGroup Label="Testsuite">
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" Version="1.1.2" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
+		<PackageVersion Include="Shouldly" Version="4.3.0" />
+		<PackageVersion Include="TUnit" Version="1.5.70" />
+	</ItemGroup>
 </Project>

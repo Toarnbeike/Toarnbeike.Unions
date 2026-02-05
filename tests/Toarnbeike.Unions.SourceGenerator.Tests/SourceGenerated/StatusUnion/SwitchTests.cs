@@ -1,13 +1,11 @@
-﻿using Toarnbeike.Unions.SourceGenerated.Complex;
-
-namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
+﻿namespace Toarnbeike.Unions.SourceGenerated.StatusUnion;
 
 public class SwitchTests
 {
     [Test]
     public void Status_Switch_Should_Switch_ForActive()
     {
-        var status = Status.Active(new Active("Running"));
+        var status = Status.Active("Running");
         var output = "";
 
         status.Switch(
@@ -21,7 +19,7 @@ public class SwitchTests
     [Test]
     public void Status_Switch_Should_Switch_ForRetry()
     {
-        var status = Status.Retry(new Retry(3));
+        var status = Status.Retry(3);
         var output = "";
 
         status.Switch(
@@ -36,7 +34,7 @@ public class SwitchTests
     public void Status_Switch_Should_Switch_ForAborted()
     {
         var abortTime = DateTime.UtcNow;
-        var status = Status.Aborted(new Aborted(abortTime));
+        var status = Status.Aborted(abortTime);
         var output = "";
 
         status.Switch(
@@ -50,7 +48,7 @@ public class SwitchTests
     [Test]
     public async Task Status_SwitchAsync_Should_Switch()
     {
-        var status = Status.Active(new Active("Running"));
+        var status = Status.Active("Running");
         var output = "";
 
         await status.SwitchAsync(
@@ -65,7 +63,7 @@ public class SwitchTests
     [Test]
     public async Task StatusTask_Match_Should_Work()
     {
-        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+        var statusTask = Task.FromResult(Status.Active("Running"));
         var output = "";
 
         await statusTask.Switch(
@@ -79,7 +77,7 @@ public class SwitchTests
     [Test]
     public async Task StatusTask_MatchAsync_Should_Work()
     {
-        var statusTask = Task.FromResult(Status.Active(new Active("Running")));
+        var statusTask = Task.FromResult(Status.Active("Running"));
         var output = "";
 
         await statusTask.SwitchAsync(
