@@ -52,25 +52,25 @@ internal static class BindGenerator
 
     private static string GenerateBindExtension(UnionModel model)
     {
-        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
             $"Func<{c.TypeName}, {model.Name}> bind{c.Name}"));
 
         var xmlParameters = string.Join("\n        ", model.Cases.Select(c =>
             $"/// <param name=\"bind{c.Name}\">The binding function if the union is in the {c.Name} value state. </param>"));
 
-        var arguments = string.Join(", ", model.Cases.Select(c => $"bind{c.Name}"));
+        var arguments = string.Join(",\n                ", model.Cases.Select(c => $"{c.ArgumentName} => bind{c.Name}({c.ArgumentName})"));
 
         return $"""
                     /// <summary>
-                    /// Apply mapping functions to the value stored in the union based on its current state.
+                    /// Apply binding functions to the value stored in the union based on its current state.
                     /// </summary>
                     {xmlParameters}
                     public {model.Name} Bind({parameters}) =>
-                        {model.Name}.FromUnion({model.ArgumentName}.AsUnion().Bind({arguments}));
-
+                        {model.ArgumentName}.Match(
+                            {arguments}
+                        );
+                        
             """;
-
     }
 
     private static string GenerateBindTExtension(UnionModel model, UnionCaseModel caseModel)
@@ -88,24 +88,26 @@ internal static class BindGenerator
 
     private static string GenerateBindAsyncExtension(UnionModel model)
     {
-        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
-            $"Func<{c.TypeName}, Task<{c.TypeName}>> map{c.Name}Async"));
+            $"Func<{c.TypeName}, Task<{model.Name}>> bind{c.Name}Async"));
 
         var xmlParameters = string.Join("\n        ", model.Cases.Select(c =>
-            $"/// <param name=\"map{c.Name}Async\">The async mapping function if the union is in the {c.Name} value state. </param>"));
+            $"/// <param name=\"bind{c.Name}Async\">The async binding function if the union is in the {c.Name} value state. </param>"));
 
-        var arguments = string.Join(", ", model.Cases.Select(c => $"map{c.Name}Async"));
+        var arguments = string.Join(",\n                ", model.Cases.Select(c => $"{c.ArgumentName} => bind{c.Name}Async({c.ArgumentName})"));
+
 
         return $"""
-                    /// <summary>
-                    /// Apply async mapping functions to the value stored in the union bases on its current state.
-                    /// </summary>
-                    {xmlParameters}
-                    public async Task<{model.Name}> BindAsync({parameters}) =>
-                        await {model.Name}.FromUnionAsync({model.ArgumentName}.AsUnion().BindAsync({arguments}));
-
-            """;
+                        /// <summary>
+                        /// Apply async binding functions to the value stored in the union based on its current state.
+                        /// </summary>
+                        {xmlParameters}
+                        public async Task<{model.Name}> BindAsync({parameters}) =>
+                            await {model.ArgumentName}.MatchAsync(
+                                {arguments}
+                            );
+                            
+                """;
     }
 
     private static string GenerateBindTAsyncExtension(UnionModel model, UnionCaseModel caseModel)
@@ -123,18 +125,17 @@ internal static class BindGenerator
 
     private static string GenerateTaskBindExtension(UnionModel model)
     {
-        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
-            $"Func<{c.TypeName}, {c.TypeName}> map{c.Name}"));
+            $"Func<{c.TypeName}, {model.Name}> bind{c.Name}"));
 
         var xmlParameters = string.Join("\n        ", model.Cases.Select(c =>
-            $"/// <param name=\"map{c.Name}\">The mapping function if the union is in the {c.Name} value state. </param>"));
+            $"/// <param name=\"bind{c.Name}\">The binding function if the union is in the {c.Name} value state. </param>"));
 
-        var arguments = string.Join(", ", model.Cases.Select(c => $"map{c.Name}"));
+        var arguments = string.Join(", ", model.Cases.Select(c => $"bind{c.Name}"));
 
         return $$"""
                     /// <summary>
-                    /// Apply mapping functions to the value stored in the union Task based on its current state.
+                    /// Apply binding functions to the value stored in the union Task based on its current state.
                     /// </summary>
                     {{xmlParameters}}
                     public async Task<{{model.Name}}> Bind({{parameters}})
@@ -144,7 +145,6 @@ internal static class BindGenerator
                     }
 
             """;
-
     }
 
     private static string GenerateTaskBindTExtension(UnionModel model, UnionCaseModel caseModel)
@@ -165,18 +165,17 @@ internal static class BindGenerator
 
     private static string GenerateTaskBindAsyncExtension(UnionModel model)
     {
-        return string.Empty;
         var parameters = string.Join(", ", model.Cases.Select(c =>
-            $"Func<{c.TypeName}, Task<{c.TypeName}>> map{c.Name}Async"));
+            $"Func<{c.TypeName}, Task<{model.Name}>> bind{c.Name}Async"));
 
         var xmlParameters = string.Join("\n        ", model.Cases.Select(c =>
-            $"/// <param name=\"map{c.Name}Async\">The async mapping function if the union is in the {c.Name} value state. </param>"));
+            $"/// <param name=\"bind{c.Name}Async\">The async binding function if the union is in the {c.Name} value state. </param>"));
 
-        var arguments = string.Join(", ", model.Cases.Select(c => $"map{c.Name}Async"));
+        var arguments = string.Join(", ", model.Cases.Select(c => $"bind{c.Name}Async"));
 
         return $$"""
                     /// <summary>
-                    /// Apply async mapping functions to the value stored in the union Task bases on its current state.
+                    /// Apply async binding functions to the value stored in the union Task bases on its current state.
                     /// </summary>
                     {{xmlParameters}}
                     public async Task<{{model.Name}}> BindAsync({{parameters}})

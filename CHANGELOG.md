@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 - Support for source generated nominal unions.
   - [UnionCase(...)] with record support;
+  - Construction of cases directly from Union.CaseName(parameters)
   - Extensions: Match, Switch, Map, Bind, Tap
   - TestExtensions: ShouldBe
   - CollectionExtensions: Select and Partition
