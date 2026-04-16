@@ -1,6 +1,9 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
+using Toarnbeike.SourceGeneration.Attributes;
+using Toarnbeike.SourceGeneration.Generation;
 using Toarnbeike.SourceGeneration.Naming;
+#pragma warning disable IDE0305 // Personal preference, prefer ToImmutableArray() over collection initialisation.
 
 namespace Toarnbeike.Unions.SourceGenerator.Model;
 
@@ -23,26 +26,24 @@ internal sealed record UnionModel
 
     public IEnumerable<string> CaseNames => Cases.Select(c => c.Name);
 
-    internal UnionModel(INamedTypeSymbol symbol)
+    internal UnionModel(INamedTypeSymbol symbol, Compilation compilation)
     {
-        var cases = GetUnionCases(symbol);
-        
+        var cases = GetUnionCases(symbol, compilation);
+
         Namespace = symbol.ContainingNamespace.ToDisplayString();
         Name = symbol.Name;
-        CaseUsings = string.Join("\n", 
-            cases.Select(c => c.ContainingNamespace.ToDisplayString())
-                .Except([Namespace])
-                .Distinct()
-                .Select(ns => $"using {ns};"));
-        Cases = [.. GetUnionCases(symbol).Select((caseSymbol, index) => new UnionCaseModel(caseSymbol, ++index))];
+        CaseUsings = cases.CreateUsingStatements(exclude: Namespace);
+        Cases = cases.Select((caseSymbol, index) => new UnionCaseModel(caseSymbol, compilation, ++index)).ToImmutableArray();
     }
 
-    private static ImmutableArray<INamedTypeSymbol> GetUnionCases(INamedTypeSymbol unionType)
+    private static ImmutableArray<INamedTypeSymbol> GetUnionCases(INamedTypeSymbol unionType, Compilation compilation)
     {
-        return [.. unionType
-            .GetAttributes()
-            .Where(a => a.AttributeClass?.Name is nameof(UnionCaseAttribute))
-            .Select(a => a.ConstructorArguments[0].Value)
-            .OfType<INamedTypeSymbol>()];
+        var unionCaseAttributeSymbol = compilation.GetTypeByMetadataName(typeof(UnionCaseAttribute).FullName!)!;
+
+        return unionType
+            .GetAttributes(unionCaseAttributeSymbol)
+            .Select(a => a.GetConstructorTypeArgument())
+            .OfType<INamedTypeSymbol>()
+            .ToImmutableArray();
     }
 }

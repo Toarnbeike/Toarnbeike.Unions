@@ -15,7 +15,7 @@ internal sealed record UnionCaseModel
 
     public string BackingTypeName => $"T{Index}";
 
-    internal UnionCaseModel(INamedTypeSymbol symbol, int index)
+    internal UnionCaseModel(INamedTypeSymbol symbol, Compilation compilation, int index)
     {
         Index = index;
         Name = symbol.Name;

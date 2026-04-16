@@ -27,4 +27,8 @@
 		                  OutputItemType="Analyzer"
 		                  ReferenceOutputAssembly="false" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\..\build\IsExternalInit.cs" Link="NetStandardCompatibility\IsExternalInit.cs" />
+	</ItemGroup>
 </Project>
