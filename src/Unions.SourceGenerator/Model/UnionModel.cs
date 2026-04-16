@@ -1,6 +1,6 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Toarnbeike.Unions.SourceGenerator.Utilities;
+using Toarnbeike.SourceGeneration.Naming;
 
 namespace Toarnbeike.Unions.SourceGenerator.Model;
 

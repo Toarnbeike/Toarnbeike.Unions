@@ -3,12 +3,13 @@
     <File Path="docs/Comparison.md" />
     <File Path="docs/Extensions.md" />
   </Folder>
+  <Folder Name="/libs/">
+    <Project Path="libs/SourceGeneration/SourceGeneration.csproj" Id="47b94621-d548-4c44-ab9d-729704ac10d3" />
+  </Folder>
   <Folder Name="/solution files/">
-    <File Path=".gitignore" />
     <File Path="CHANGELOG.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
-    <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">

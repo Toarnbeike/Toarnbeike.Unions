@@ -121,6 +121,7 @@ public class UnionValidationTests
         public record A;
         public interface B;
         """;
+
         await AnalyzerTest.VerifyAsync(
             source,
             DiagnosticResult.CompilerError("TU006")

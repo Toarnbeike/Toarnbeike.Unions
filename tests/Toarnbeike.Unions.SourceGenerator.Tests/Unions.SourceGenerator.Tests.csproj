@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<RootNamespace>Toarnbeike.Unions</RootNamespace>
+		<TargetFramework>net10.0</TargetFramework>
 		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 

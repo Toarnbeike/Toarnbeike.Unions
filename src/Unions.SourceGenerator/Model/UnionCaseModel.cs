@@ -1,7 +1,7 @@
 ﻿using Microsoft.CodeAnalysis;
 using System.Collections.Immutable;
 using System.Xml.Linq;
-using Toarnbeike.Unions.SourceGenerator.Utilities;
+using Toarnbeike.SourceGeneration.Naming;
 
 namespace Toarnbeike.Unions.SourceGenerator.Model;
 
