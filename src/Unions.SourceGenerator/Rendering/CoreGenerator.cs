@@ -2,7 +2,6 @@
 using System.Text;
 using Toarnbeike.SourceGeneration.Models.Rendering;
 using Toarnbeike.SourceGeneration.Rendering;
-using Toarnbeike.SourceGeneration.Rendering.Text;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
 namespace Toarnbeike.Unions.SourceGenerator.Rendering;

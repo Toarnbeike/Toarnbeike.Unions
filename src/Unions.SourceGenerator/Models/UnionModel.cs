@@ -1,5 +1,5 @@
 ﻿using System.Collections.Immutable;
-using Toarnbeike.SourceGeneration.Naming;
+using Toarnbeike.SourceGeneration.Rendering;
 
 namespace Toarnbeike.Unions.SourceGenerator.Models;
 
