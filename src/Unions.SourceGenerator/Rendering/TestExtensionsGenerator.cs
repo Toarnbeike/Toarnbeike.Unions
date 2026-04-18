@@ -1,6 +1,6 @@
-﻿using Toarnbeike.Unions.SourceGenerator.Model;
+﻿using Toarnbeike.Unions.SourceGenerator.Models;
 
-namespace Toarnbeike.Unions.SourceGenerator.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Rendering;
 
 internal static class TestExtensionsGenerator
 {

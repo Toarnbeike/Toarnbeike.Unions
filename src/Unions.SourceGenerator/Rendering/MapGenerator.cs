@@ -1,9 +1,9 @@
-﻿using Toarnbeike.Unions.SourceGenerator.Model;
+﻿using Toarnbeike.Unions.SourceGenerator.Models;
 
 #pragma warning disable CS0162 // Unreachable code detected - Mapping of all branches at once is for now disabled, could later be reinstated.
 // ReSharper disable HeuristicUnreachableCode
 
-namespace Toarnbeike.Unions.SourceGenerator.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Rendering;
 
 internal static class MapGenerator
 {

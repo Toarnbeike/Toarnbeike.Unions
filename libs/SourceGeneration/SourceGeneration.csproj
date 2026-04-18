@@ -13,4 +13,8 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\..\build\IsExternalInit.cs" Link="NetStandardCompatibility\IsExternalInit.cs" />
+	</ItemGroup>
 </Project>

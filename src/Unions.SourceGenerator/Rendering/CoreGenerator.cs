@@ -1,8 +1,9 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
-using Toarnbeike.Unions.SourceGenerator.Model;
+using Toarnbeike.SourceGeneration.Rendering;
+using Toarnbeike.Unions.SourceGenerator.Models;
 
-namespace Toarnbeike.Unions.SourceGenerator.Generators;
+namespace Toarnbeike.Unions.SourceGenerator.Rendering;
 
 internal static class CoreGenerator
 {

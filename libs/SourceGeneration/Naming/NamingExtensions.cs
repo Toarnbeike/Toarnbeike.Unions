@@ -31,3 +31,20 @@ public static class NamingExtensions
                 : char.ToLower(name[0]) + name.Substring(1);
     }
 }
+
+public static class TypeNameUtilities
+{
+    /// <summary>
+    /// Get the namespace part of a full type name.
+    /// </summary>
+    public static string? GetNamespace(string fullTypeName)
+    {
+        if (string.IsNullOrEmpty(fullTypeName))
+            return null;
+
+        var lastDot = fullTypeName.LastIndexOf('.');
+        return lastDot > 0
+            ? fullTypeName.Substring(0, lastDot)
+            : null;
+    }
+}
