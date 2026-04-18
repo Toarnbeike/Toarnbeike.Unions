@@ -1,4 +1,4 @@
-﻿using Toarnbeike.SourceGeneration.NetStandardCompatibility;
+﻿using Toarnbeike.SourceGeneration.Utilities;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
 namespace Toarnbeike.Unions.SourceGenerator.Rendering;
@@ -11,5 +11,5 @@ internal sealed class UnionModelComparer : IEqualityComparer<UnionModel>
         => x?.Name == y?.Name && x?.Namespace == y?.Namespace;
 
     public int GetHashCode(UnionModel obj)
-        => HashCode.Combine(obj.Namespace, obj.Name);
+        => HashCodeHelper.Combine(obj.Namespace, obj.Name);
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Immutable;
 using System.Text;
+using Toarnbeike.SourceGeneration.Models.Rendering;
 using Toarnbeike.SourceGeneration.Rendering;
+using Toarnbeike.SourceGeneration.Rendering.Text;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
 namespace Toarnbeike.Unions.SourceGenerator.Rendering;
@@ -62,7 +64,7 @@ internal static class CoreGenerator
                  /// <summary>
                  /// Creates a {{model.Name}} in the {{caseModel.Name}} state.
                  /// </summary>
-                 {{caseModel.ConstructorParameters.GetXmlComments("\n        ")}}
+                 {{caseModel.ConstructorParameters.GetXmlComments().Indent(2)}}
                  public static {{model.Name}} {{caseModel.Name}}({{caseModel.ConstructorParameters.GetAsParameters()}}) =>
                      new({{model.BackingUnionType}}.FromT{{caseModel.Index}}(new {{caseModel.Name}}({{caseModel.ConstructorParameters.GetAsArguments()}})));
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Toarnbeike.SourceGeneration.Attributes;
+using Toarnbeike.SourceGeneration.Rendering.Usings;
+using Toarnbeike.SourceGeneration.Semantic.Attributes;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
 namespace Toarnbeike.Unions.SourceGenerator.ModelFactories;
@@ -12,14 +13,16 @@ internal static class UnionModelFactory
         INamedTypeSymbol unionCaseAttributeSymbol)
     {
         var cases = GetUnionCases(symbol, unionCaseAttributeSymbol);
+        var modelNamespace = symbol.ContainingNamespace.ToDisplayString();
 
         return new UnionModel(
-            Namespace: symbol.ContainingNamespace.ToDisplayString(),
+            Namespace: modelNamespace,
             Name: symbol.Name,
             Cases: cases
                 .Select((caseSymbol, index) =>
                     UnionCaseModelFactory.Create(caseSymbol, index + 1))
-                .ToImmutableArray());
+                .ToImmutableArray(),
+            CaseUsings: UsingBuilder.FromTypes(cases, modelNamespace));
     }
 
     private static ImmutableArray<INamedTypeSymbol> GetUnionCases(
@@ -28,7 +31,7 @@ internal static class UnionModelFactory
     {
         return unionType
             .GetAttributes(unionCaseAttributeSymbol)
-            .Select(a => a.GetConstructorTypeArgument())
+            .Select(a => a.GetTypeArgument())
             .OfType<INamedTypeSymbol>()
             .ToImmutableArray();
     }

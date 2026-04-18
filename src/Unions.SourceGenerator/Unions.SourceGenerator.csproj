@@ -16,13 +16,17 @@
 		<AdditionalFiles Include="Analyzers\AnalyzerReleases.Unshipped.md" />
 	</ItemGroup>
 
+	<!--
 	<ItemGroup>
-		<!-- for compile-time references -->
 		<ProjectReference Include="..\..\libs\SourceGeneration\SourceGeneration.csproj" />
-		<!-- For analyzer runtime -->
 		<ProjectReference Include="..\..\libs\SourceGeneration\SourceGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
-	
+-->
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\SourceGeneration\src\SourceGeneration\SourceGeneration.csproj" />
+		<ProjectReference Include="..\..\..\SourceGeneration\src\SourceGeneration\SourceGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+	</ItemGroup>
+
 	<ItemGroup>
 
 	</ItemGroup>

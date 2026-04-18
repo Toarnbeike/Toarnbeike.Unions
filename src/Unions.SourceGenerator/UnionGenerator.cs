@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
-using Toarnbeike.SourceGeneration.Attributes;
+using Toarnbeike.SourceGeneration.Selection;
 using Toarnbeike.Unions.SourceGenerator.ModelFactories;
 using Toarnbeike.Unions.SourceGenerator.Models;
 using Toarnbeike.Unions.SourceGenerator.Rendering;
@@ -13,36 +13,16 @@ public sealed class UnionGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        // 0. Cache the [UnionCase] attribute
-        var unionCaseAttribute = context.CompilationProvider
-            .Select((compilation, _) =>
-                compilation.GetTypeByMetadataName(typeof(UnionCaseAttribute).FullName!));
+        var unionCaseAttribute = context.ForType<UnionCaseAttribute>();
 
-        // 1. Find classes with [UnionCase] attributes
-        var candidateClasses = context.SyntaxProvider
-            .CreateSyntaxProvider(
-                static (node, _) => node.FilterClassWithAttribute(),
-                static (ctx, _) => ctx.TypesAnnotatedWith<UnionCaseAttribute>())
-            .Where(static c => c is not null);
-
-        // 2. Combine and create model
-        var unionModels = candidateClasses
-            .Combine(unionCaseAttribute)
-            .Select((tuple, _) =>
-            {
-                var (symbol, attributeSymbol) = tuple;
-
-                return symbol is not { } type || attributeSymbol is null
-                    ? null
-                    : UnionModelFactory.Create(type, attributeSymbol);
-            })
-            .Where(m => m is not null)!
+        var unionModels = context.ForAttribute<UnionCaseAttribute>()
+            .CombineWith(unionCaseAttribute)
+            .Select((tuple, _) => UnionModelFactory.Create(tuple.Left, tuple.Right!))
             .WithComparer(UnionModelComparer.Instance);
 
-        // 3. Execute
         context.RegisterSourceOutput(
             unionModels,
-            static (spc, model) => Execute(spc, model!));
+            static (spc, model) => Execute(spc, model));
     }
 
     private static void Execute(SourceProductionContext context, UnionModel model)
