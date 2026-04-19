@@ -10,6 +10,7 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Unions.Generator.Contract/Unions.Generator.Contract.csproj" Id="a303e671-eeea-46cd-8c1a-94054cf17ed6" />
     <Project Path="src/Unions.SourceGenerator/Unions.SourceGenerator.csproj" Id="354362ca-ba79-493d-b031-c8da0800048b" />
     <Project Path="src/Unions.StaticGenerator/Unions.StaticGenerator.csproj" Id="61e9aaff-cffa-4b82-a677-1fb4bf9fd6c7" />
     <Project Path="src/Unions/Unions.csproj" />
