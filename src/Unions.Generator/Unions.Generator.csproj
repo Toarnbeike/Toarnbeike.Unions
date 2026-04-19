@@ -8,7 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Unions.Generator.Contract\Unions.Generator.Contract.csproj" />
+		<ProjectReference Include="..\Unions.Generator.Analysis\Unions.Generator.Analysis.csproj" />
+		<ProjectReference Include="..\Unions.Generator.Contracts\Unions.Generator.Contracts.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -17,8 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="Analyzers\AnalyzerReleases.Shipped.md" />
-		<AdditionalFiles Include="Analyzers\AnalyzerReleases.Unshipped.md" />
+	  <Folder Include="Analyzers\" />
 	</ItemGroup>
 
 </Project>

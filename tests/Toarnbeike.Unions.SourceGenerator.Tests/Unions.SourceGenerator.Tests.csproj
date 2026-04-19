@@ -17,10 +17,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Unions.Generator.Contract\Unions.Generator.Contract.csproj" />
 		<ProjectReference Include="..\..\src\Unions\Unions.csproj" />
-		<ProjectReference Include="..\..\src\Unions.SourceGenerator\Unions.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<ProjectReference Include="..\..\src\Unions.Generator.Contract\Unions.Generator.Contract.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\src\Unions.Generator.Contracts\Unions.Generator.Contracts.csproj" />
+		<ProjectReference Include="..\..\src\Unions.Generator.Analysis\Unions.Generator.Analysis.csproj" />
+		</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Unions.Generator\Unions.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\src\Unions.Generator.Contracts\Unions.Generator.Contracts.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+		<ProjectReference Include="..\..\src\Unions.Generator.Analysis\Unions.Generator.Analysis.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<ItemGroup>

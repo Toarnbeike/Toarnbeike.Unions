@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Toarnbeike.SourceGeneration.Selection;
+using Toarnbeike.Unions.Generator.Analysis;
 using Toarnbeike.Unions.SourceGenerator.ModelFactories;
 using Toarnbeike.Unions.SourceGenerator.Models;
 using Toarnbeike.Unions.SourceGenerator.Rendering;
@@ -15,9 +16,30 @@ public sealed class UnionGenerator : IIncrementalGenerator
     {
         var unionCaseAttribute = context.ForType<UnionCaseAttribute>();
 
-        var unionModels = context.ForAttribute<UnionCaseAttribute>()
+        var analyzedUnions = context.ForAttribute<UnionCaseAttribute>()
+            // todo: create overload of CombineWith that allows naming the tuple items.
             .CombineWith(unionCaseAttribute)
-            .Select((tuple, _) => UnionModelFactory.Create(tuple.Left, tuple.Right!))
+            .Select((tuple, _) =>
+            {
+                var union = tuple.Left;
+                var attribute = tuple.Right;
+                var analysis = UnionAnalyzer.Analyze(union, attribute!);
+                return (union, attribute, analysis);
+            });
+
+        // todo: create tap extension on IncrementalValuesProvider in library.
+        context.RegisterSourceOutput(analyzedUnions,
+            static (spc, tuple) =>
+            {
+                foreach (var diagnostic in tuple.analysis)
+                {
+                    spc.ReportDiagnostic(diagnostic);
+                }
+            });
+
+        var unionModels = analyzedUnions
+            .Where(tuple => !tuple.analysis.Any())
+            .Select((tuple, _) => UnionModelFactory.Create(tuple.union, tuple.attribute!))
             .WithComparer(UnionModelComparer.Instance);
 
         context.RegisterSourceOutput(

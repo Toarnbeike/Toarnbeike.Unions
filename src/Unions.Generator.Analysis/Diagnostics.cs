@@ -1,9 +1,9 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 
-namespace Toarnbeike.Unions.SourceGenerator.Analyzers;
+namespace Toarnbeike.Unions.Generator.Analysis;
 
-internal static class Diagnostics
+public static class Diagnostics
 {
     private const string Category = "Toarnbeike.Unions";
 
@@ -107,4 +107,3 @@ internal static class Diagnostics
         UnionCaseMustBeUnnested
     ];
 }
-
