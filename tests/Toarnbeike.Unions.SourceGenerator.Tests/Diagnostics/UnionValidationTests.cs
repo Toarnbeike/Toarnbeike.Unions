@@ -88,6 +88,7 @@ public class UnionValidationTests
     }
 
     [Test]
+    [NotInParallel]
     public async Task UnionCaseWithNonRecordType_Produces_T005Warning()
     {
         var source = """
@@ -170,6 +171,7 @@ public class UnionValidationTests
     }
 
     [Test]
+    [NotInParallel]
     public async Task NestedUnionCase_Produces_T008Error()
     {
         var source = """

@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-<a id="v2-0-0"></a>
-## [2.0.0] - 2026-02-##
+<a id="v1-4-0"></a>
+## [1.4.0] - 2026-04-19
 
 ### Added
 - Support for source generated nominal unions.

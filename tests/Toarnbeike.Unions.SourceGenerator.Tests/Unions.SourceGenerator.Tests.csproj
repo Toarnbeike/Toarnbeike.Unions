@@ -4,6 +4,8 @@
 		<RootNamespace>Toarnbeike.Unions</RootNamespace>
 		<TargetFramework>net10.0</TargetFramework>
 		<OutputType>Exe</OutputType>
+
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,16 +17,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Unions.SourceGenerator\Unions.SourceGenerator.csproj" />
+		<ProjectReference Include="..\..\src\Unions.SourceGenerator\Unions.SourceGenerator.csproj" privateAssets="all" />
+		<ProjectReference Include="..\..\src\Unions.SourceGenerator\Unions.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\..\src\Unions\Unions.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="Shouldly" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\src\Unions.SourceGenerator\Unions.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	</ItemGroup>
-
 </Project>

@@ -33,5 +33,6 @@ public sealed class UnionGenerator : IIncrementalGenerator
         context.AddSource($"{model.Name}_TestExtensions.g.cs", SourceText.From(TestExtensionsGenerator.Execute(model), Encoding.UTF8));
         context.AddSource($"{model.Name}_Map.g.cs", SourceText.From(MapGenerator.Execute(model), Encoding.UTF8));
         context.AddSource($"{model.Name}_Bind.g.cs", SourceText.From(BindGenerator.Execute(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_CollectionExtensions.g.cs", SourceText.From(CollectionExtensionsGenerator.Execute(model), Encoding.UTF8));
     }
 }
