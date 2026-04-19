@@ -1,5 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
-using Toarnbeike.SourceGeneration.ModelFactories;
+using Toarnbeike.SourceGeneration.Models.Factories;
 using Toarnbeike.SourceGeneration.Semantic.Display;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
