@@ -6,6 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+<a id="v1-4-0"></a>
+## [2.0.0-alpha.1] - 2026-04-20
+Prerelease of the source generator.
+
+### Added
+- Support for source generated nominal unions.
+  - [UnionCase(...)] with record support;
+  - Construction of cases directly from Union.CaseName(parameters)
+  - Extensions: Match, Switch, Map, Bind, Tap
+  - TestExtensions: ShouldBe
+  - CollectionExtensions: Select and Partition
+
+- Included analyzers
+  - A union must declare at least two cases
+  - Union case must be unique
+  - Union case must be a valid type
+  - Union declaration must be partial
+  - Union case must be concrete
+  - Union case must be non generic
+  - Union case must be unnested
+
+- Tests on nominal source generated union types
+
 <a id="v1-3-0"></a>
 ## [1.3.0] - 2026-02-01
 

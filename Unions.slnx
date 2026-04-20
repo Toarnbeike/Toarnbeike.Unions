@@ -4,20 +4,24 @@
     <File Path="docs/Extensions.md" />
   </Folder>
   <Folder Name="/solution files/">
-    <File Path=".gitignore" />
     <File Path="CHANGELOG.md" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
-    <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Unions.StaticGenerator/Unions.StaticGenerator.csproj" Id="61e9aaff-cffa-4b82-a677-1fb4bf9fd6c7" />
     <Project Path="src/Unions/Unions.csproj" />
+	<Project Path="src/Unions.Generator/Unions.Generator.csproj" />
+    <Project Path="src/Unions.Generator.Analysis/Unions.Generator.Analysis.csproj" />
+    <Project Path="src/Unions.Generator.Contracts/Unions.Generator.Contracts.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Unions.Tests.StaticGenerator/Unions.Tests.StaticGenerator.csproj" Id="2ac92359-786b-48f3-8518-aa67454d230b" />
-    <Project Path="tests/Unions.Tests/Unions.Tests.csproj" Id="e19f86df-f5ee-41b6-92fa-20f420a255a7" />
+    <Project Path="tests/Toarnbeike.Unions.SourceGenerator.Tests/Unions.SourceGenerator.Tests.csproj" />
+    <Project Path="tests/Unions.Tests/Unions.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/GenericUnionGenerator/GenericUnionGenerator.csproj" />
+	<Project Path="tools/GenericUnionTestGenerator/GenericUnionTestGenerator.csproj" />
   </Folder>
   <Folder Name="/workflows/">
     <File Path=".github/workflows/build.yaml" />

@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>Toarnbeike.Unions.SourceGenerator</RootNamespace>
+		<AssemblyName>Toarnbeike.Unions.Generator</AssemblyName>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<IsRoslynComponent>true</IsRoslynComponent>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<!-- todo: dit uitzetten en in plaats hiervan een lege file toevoegen _._ als lib output. -->
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+
+		<PackageId>Toarnbeike.Unions.Generator</PackageId>
+		<Description>Source generated tagged unions.</Description>
+		<PackageTags>tagged union unions source generated oneof toarnbeike functional</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Unions.Generator.Analysis\Unions.Generator.Analysis.csproj" privateAssets="All"/>
+		<ProjectReference Include="..\Unions.Generator.Contracts\Unions.Generator.Contracts.csproj" privateAssets="All"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
+		<PackageReference Include="Toarnbeike.SourceGeneration" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(OutputPath)\Toarnbeike.Unions.Generator.dll"
+		      Pack="true"
+		      PackagePath="analyzers/dotnet/cs" 
+		      Visible="false"/>
+
+		<None Include="$(OutputPath)\Toarnbeike.Unions.Generator.Analysis.dll"
+		      Pack="true"
+		      PackagePath="analyzers/dotnet/cs"
+		      Visible="false"/>
+
+		<None Include="$(OutputPath)\Toarnbeike.Unions.Generator.Contracts.dll"
+		      Pack="true"
+		      PackagePath="analyzers/dotnet/cs"
+		      Visible="false"/>
+
+		<None Include="$(OutputPath)\Toarnbeike.Unions.Generator.Contracts.dll"
+		      Pack="true"
+		      PackagePath="buildTransitive"
+		      Visible="false" />
+
+		<None Include="buildTransitive\Toarnbeike.Unions.Generator.props"
+		      Pack="true"
+		      PackagePath="buildTransitive" 
+		      Visible="false" />
+
+		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false" />
+	</ItemGroup>
+
+</Project>

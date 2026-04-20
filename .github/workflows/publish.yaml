@@ -24,6 +24,12 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Get version from Directory.Build.props
+        id: get_version
+        run: |
+          VERSION=$(grep '<Version>' Directory.Build.props | head -n1 | sed -E 's/.*<Version>(.*)<\/Version>.*/\1/')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: Restore dependencies
         run: dotnet restore
 
@@ -33,16 +39,14 @@ jobs:
       - name: Pack Unions
         run: dotnet pack src/Unions/Unions.csproj --configuration Release --no-build --output ./nupkgs
 
+      - name: Pack Unions.Generator
+        run: dotnet pack src/Unions.Generator/Unions.Generator.csproj --configuration Release --no-build --output ./nupkgs
+
       - name: Push to NuGet
         run: dotnet nuget push ./nupkgs/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }}
 
-      - name: Get version from Directory.Build.props
-        id: get_version
-        run: |
-          VERSION=$(grep '<Version>' Directory.Build.props | head -n1 | sed -E 's/.*<Version>(.*)<\/Version>.*/\1/')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: Create GitHub Release
+        if: "!contains(env.VERSION, '-')"
         uses: softprops/action-gh-release@v1
         with:
           tag_name: "v${{ env.VERSION }}"

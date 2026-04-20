@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <RootNamespace>Toarnbeike.Unions.SourceGenerator</RootNamespace>
+	  <AssemblyName>Toarnbeike.Unions.Generator.Contracts</AssemblyName>
+	  <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
