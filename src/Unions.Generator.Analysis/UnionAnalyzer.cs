@@ -18,7 +18,7 @@ public static class UnionAnalyzer
         diagnostics.Add(CheckT001_TooFewCases(unionSymbol, attributes));
         diagnostics.AddRange(CheckT002_DuplicateCases(unionSymbol, caseTypes));
         diagnostics.AddRange(CheckT003_InvalidCaseType(unionSymbol, caseTypes));
-        diagnostics.Add(CheckT004_UnionMustBePartial(unionSymbol));
+        //diagnostics.Add(CheckT004_UnionMustBePartial(unionSymbol));
         diagnostics.AddRange(CheckT005_UnionCaseShouldBeRecord(unionSymbol, caseTypes));
         diagnostics.AddRange(CheckT006_UnionCaseMustBeConcrete(unionSymbol, caseTypes));
         diagnostics.AddRange(CheckT007_UnionCaseMustBeNonGeneric(unionSymbol, caseTypes));
@@ -64,8 +64,9 @@ public static class UnionAnalyzer
     private static Diagnostic? CheckT004_UnionMustBePartial(INamedTypeSymbol unionSymbol)
     {
         var isPartial = unionSymbol.DeclaringSyntaxReferences
-            .Any(r => r.GetSyntax() is ClassDeclarationSyntax c &&
-                      c.Modifiers.Any(m => m.IsKind(SyntaxKind.PartialKeyword)));
+            .Select(r => r.GetSyntax())
+            .OfType<ClassDeclarationSyntax>()
+            .Any(c => c.Modifiers.Any(m => m.Text == "partial"));
 
         if (isPartial) return null;
 

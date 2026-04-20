@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<RootNamespace>Toarnbeike.Unions.Generator.Analysis</RootNamespace>
+		<AssemblyName>Toarnbeike.Unions.Generator.Analysis</AssemblyName>
 		<TargetFramework>netstandard2.0</TargetFramework>
 	</PropertyGroup>
 

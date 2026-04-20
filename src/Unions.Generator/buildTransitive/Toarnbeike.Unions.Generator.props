@@ -1,0 +1,7 @@
+<Project>
+  <ItemGroup>
+    <Reference Include="Toarnbeike.Unions.Generator.Contracts">
+      <HintPath>$(MSBuildThisFileDirectory)Toarnbeike.Unions.Generator.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
