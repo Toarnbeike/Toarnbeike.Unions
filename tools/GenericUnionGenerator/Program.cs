@@ -49,7 +49,7 @@ static int Generate(int upperBound)
     File.WriteAllText(Path.Join(outputRoot, "Extensions/TapExtensions.cs"), taps);
 
     Console.WriteLine("Generating partition extensions");
-    var partitions = PartitionExtensionsGenerator.Generate(range);
+    var partitions = CollectionExtensionsGenerator.Generate(range);
     File.WriteAllText(Path.Join(outputRoot, "Collections/PartitionExtensions.cs"), partitions);
 
     Console.WriteLine("Generating test extensions");

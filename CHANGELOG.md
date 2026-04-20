@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
-<a id="v1-4-0"></a>
+<a id="v2-0-0-beta-1"></a>
+## [2.0.0-beta.1] - 2026-04-20
+Beta prerelease of the source generator.
+
+### Removed
+- Extensions.BindFull - Use `Extensions.Match(Func<T1, Union<T1..Tn>, .., Func<Tn, Union<T1..Tn>)`, making the return type Union explicit (#13).
+- TestExtensions.ShouldBeTn(Tn expected) - Use `ShouldBeTn().ShouldBe(expected)`. Using `Shouldly` gives better assertion information (#14).
+
+### Fixed
+- Renamed `PartitionExtensions` to `CollectionExtensions`
+
+<a id="v2-0-0-alpha-1"></a>
 ## [2.0.0-alpha.1] - 2026-04-20
 Prerelease of the source generator.
 

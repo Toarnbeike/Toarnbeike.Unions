@@ -61,21 +61,6 @@ internal static class TestExtensionsGenerator
                                  ? union.AsT{{arity}} 
                                  : throw new AssertionFailedException($"Expected union to be T{{arity}}, but it was T{union.Index} ({union.DebuggerToString()}).");
                          }
-
-                         /// <summary>
-                         /// Verifies that the union is in the T{{arity}} state and has the expected value.
-                         /// </summary>
-                         /// <param name="expected">The expected value of the union.</param>
-                         /// <exception cref="AssertionFailedException">Thrown if the union is not in the T{{arity}} state, or if the value does not match the expected.</exception>
-                         public T{{arity}} ShouldBeT{{arity}}(T{{arity}} expected)
-                         {
-                             var actual = union.ShouldBeT{{arity}}();
-                             if (!EqualityComparer<T{{arity}}>.Default.Equals(actual, expected))
-                             {
-                                 throw new AssertionFailedException($"Expected T{{arity}} value to be {expected}, but it was {actual}.");
-                             }
-                             return actual;
-                         }
                  """;
     }
 }

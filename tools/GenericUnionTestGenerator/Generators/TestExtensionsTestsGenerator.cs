@@ -68,24 +68,6 @@ internal class TestExtensionsTestsGenerator
 
                 Should.Throw<AssertionFailedException>(() => union.ShouldBeT{{arity}}()).Message.ShouldBe("Expected union to be T{{arity}}, but it was T{{otherArity}} (T{{otherArity}} (U{{otherArity}}) = U{{otherArity}} { Value = {{otherArity}} }).");
             }
-
-            [Test]
-            public void ShouldBeT{{arity}}_Should_Pass_WhenEqualToExpectedValue()
-            {
-                var union = MakeT{{arity}}({{arity}});
-                var expected = new U{{arity}}({{arity}});
-
-                var result = union.ShouldBeT{{arity}}(expected);
-                result.ShouldBe(expected);
-            }
-
-            [Test]
-            public void ShouldBeT{{arity}}_Should_Throw_WhenNotEqualToExpectedValue()
-            {
-                var union = MakeT{{arity}}({{arity}});
-                var expected = new U{{arity}}(100);
-                Should.Throw<AssertionFailedException>(() => union.ShouldBeT{{arity}}(expected)).Message.ShouldBe("Expected T{{arity}} value to be U{{arity}} { Value = 100 }, but it was U{{arity}} { Value = {{arity}} }.");
-            }
             """;
     }
 }
