@@ -49,8 +49,7 @@
 
 		<None Include="buildTransitive\Toarnbeike.Unions.Generator.props"
 		      Pack="true"
-		      PackagePath="buildTransitive" 
-		      Visible="false" />
+		      PackagePath="buildTransitive" />
 
 		<None Include="..\..\README.md" Pack="true" PackagePath="" Visible="false" />
 	</ItemGroup>

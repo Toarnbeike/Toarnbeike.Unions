@@ -1,7 +1,7 @@
 ﻿using Toarnbeike.SourceGeneration.Utilities;
 using Toarnbeike.Unions.SourceGenerator.Models;
 
-namespace Toarnbeike.Unions.SourceGenerator.Rendering;
+namespace Toarnbeike.Unions.SourceGenerator;
 
 internal sealed class UnionModelComparer : IEqualityComparer<UnionModel>
 {
