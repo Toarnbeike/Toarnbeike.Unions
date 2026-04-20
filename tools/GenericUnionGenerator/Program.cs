@@ -49,12 +49,12 @@ static int Generate(int upperBound)
     File.WriteAllText(Path.Join(outputRoot, "Extensions/TapExtensions.cs"), taps);
 
     Console.WriteLine("Generating partition extensions");
-    var partitions = CollectionExtensionsGenerator.Generate(range);
-    File.WriteAllText(Path.Join(outputRoot, "Collections/PartitionExtensions.cs"), partitions);
+    var collectionExtensions = CollectionExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Collections/PartitionExtensions.cs"), collectionExtensions);
 
     Console.WriteLine("Generating test extensions");
-    var testHelpers = TestExtensionsGenerator.Generate(range);
-    File.WriteAllText(Path.Join(outputRoot, "TestExtensions/TestExtensions.cs"), testHelpers);
+    var testExtensions = TestExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "TestExtensions/TestExtensions.cs"), testExtensions);
 
     Console.WriteLine("\nGeneration completed successfully.");
 

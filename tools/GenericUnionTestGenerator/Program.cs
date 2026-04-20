@@ -75,8 +75,8 @@ static int GenerateTests(int maxArity)
     Console.WriteLine("Generating partition collection extensions tests");
     foreach (var arity in range)
     {
-        var partitionTests = PartitionExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Collections/Partitions/Generated/Partition{arity:D2}Tests.cs"), partitionTests);
+        var collectionExtensionsTests = CollectionExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Collections/Partitions/Generated/Partition{arity:D2}Tests.cs"), collectionExtensionsTests);
     }
 
     Console.WriteLine("Generating test helper extensions tests");

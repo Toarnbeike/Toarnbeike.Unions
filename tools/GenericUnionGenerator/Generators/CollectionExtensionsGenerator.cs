@@ -18,9 +18,9 @@ internal static class CollectionExtensionsGenerator
             namespace Toarnbeike.Unions.Generic.Collections;
 
             /// <summary>
-            /// Partition: extension methods to partition collections of unions into collections of their constituent types.
+            /// Collections: extension methods to collections of unions. Select a given type or partition the collection into collections of their constituent types.
             /// </summary>
-            public static class PartitionExtensions
+            public static class CollectionExtensions
             {{{string.Join("\n", arities.Select(GeneratePartition))}}
             }
             """;
@@ -33,7 +33,7 @@ internal static class CollectionExtensionsGenerator
 
         return $$"""
 
-                     #region Partition Extensions for Union{{genericArgs}}
+                     #region Collection Extensions for Union{{genericArgs}}
                      
                      
                      /// <param name="source">The source collection of unions.</param>
