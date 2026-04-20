@@ -41,10 +41,8 @@ static int Generate(int upperBound)
     File.WriteAllText(Path.Join(outputRoot, "Extensions/MapExtensions.Partial.cs"), mapPartial);
 
     Console.WriteLine("Generating bind extensions");
-    var bindFull = BindFullExtensionsGenerator.Generate(range);
-    var bindPartial = BindPartialExtensionsGenerator.Generate(range);
-    File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Full.cs"), bindFull);
-    File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.Partial.cs"), bindPartial);
+    var binds = BindExtensionsGenerator.Generate(range);
+    File.WriteAllText(Path.Join(outputRoot, "Extensions/BindExtensions.cs"), binds);
 
     Console.WriteLine("Generating tap extensions");
     var taps = TapExtensionsGenerator.Generate(range);

@@ -61,10 +61,8 @@ static int GenerateTests(int maxArity)
     Console.WriteLine("Generating bind extensions tests");
     foreach (var arity in range)
     {
-        var bindFullTests = BindFullExtensionsTestsGenerator.Generate(arity);
-        var bindPartialTests = BindPartialExtensionsTestsGenerator.Generate(arity);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}FullTests.cs"), bindFullTests);
-        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}PartialTests.cs"), bindPartialTests);
+        var bindPartialTests = BindExtensionsTestsGenerator.Generate(arity);
+        File.WriteAllText(Path.Join(outputRoot, $"Extensions/Bind/Generated/Bind{arity:D2}Tests.cs"), bindPartialTests);
     }
 
     Console.WriteLine("Generating tap extensions tests");

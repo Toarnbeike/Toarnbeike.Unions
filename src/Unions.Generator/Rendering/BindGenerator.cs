@@ -1,13 +1,9 @@
 ﻿using Toarnbeike.Unions.SourceGenerator.Models;
 
-#pragma warning disable CS0162 // Unreachable code detected - Binding of all branches at once is for now disabled, could later be fixed and reinstated.
-// ReSharper disable HeuristicUnreachableCode
-
 namespace Toarnbeike.Unions.SourceGenerator.Rendering;
 
 internal static class BindGenerator
 {
-    // todo: Reintroduce the binding of all branches simultaneously. 
     public static string Execute(UnionModel model)
     {
         return $$"""

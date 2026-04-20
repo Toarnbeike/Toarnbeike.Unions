@@ -17,7 +17,7 @@ namespace Toarnbeike.Unions.Generic.Extensions;
 /// This file deals with partial binds, binding one specific case of the union.
 /// For full transforming, see the other part of this partial class.
 /// </remarks>
-public static partial class BindExtensions
+public static class BindExtensions
 {
     #region Bind Extensions for Union<T1, T2>
 
