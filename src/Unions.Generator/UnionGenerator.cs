@@ -4,8 +4,8 @@ using Microsoft.CodeAnalysis.Text;
 using Toarnbeike.SourceGeneration.Selection;
 using Toarnbeike.Unions.Generator.Analysis;
 using Toarnbeike.Unions.SourceGenerator.Emitters;
-using Toarnbeike.Unions.SourceGenerator.ModelFactories;
 using Toarnbeike.Unions.SourceGenerator.Models;
+using Toarnbeike.Unions.SourceGenerator.Models.Factories;
 
 namespace Toarnbeike.Unions.SourceGenerator;
 

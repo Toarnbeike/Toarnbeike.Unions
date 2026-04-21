@@ -1,9 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Toarnbeike.SourceGeneration.Models.Factories;
 using Toarnbeike.SourceGeneration.Semantic.Display;
-using Toarnbeike.Unions.SourceGenerator.Models;
 
-namespace Toarnbeike.Unions.SourceGenerator.ModelFactories;
+namespace Toarnbeike.Unions.SourceGenerator.Models.Factories;
 
 internal static class UnionCaseModelFactory
 {
