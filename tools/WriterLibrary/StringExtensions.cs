@@ -16,7 +16,7 @@ public static class StringExtensions
     public static string JoinLines(this IEnumerable<string> lines) => string.Join("\n", lines);
 
     /// <summary>
-    /// Join a set of lines by placing them on new lines.
+    /// Join a set of lines by placing them as paragraphs on new lines.
     /// Utility function to make pipelines nicer.
     /// </summary>
     /// <param name="lines">The lines to place.</param>

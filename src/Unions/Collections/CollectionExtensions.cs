@@ -60,7 +60,7 @@ public static class CollectionExtensions
             return (t1Set, t2Set);
         }
     }
-    
+
     #endregion
     
     #region Collection Extensions for Union<T1, T2, T3>

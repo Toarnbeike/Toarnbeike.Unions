@@ -17,6 +17,9 @@ Beta prerelease of the source generator.
 ### Fixed
 - Renamed `PartitionExtensions` to `CollectionExtensions`
 
+## Tooling
+- Renamed tools to writers, to better distinguish between Generator and tools
+
 <a id="v2-0-0-alpha-1"></a>
 ## [2.0.0-alpha.1] - 2026-04-20
 Prerelease of the source generator.
