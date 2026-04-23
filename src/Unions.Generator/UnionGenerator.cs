@@ -3,9 +3,9 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using Toarnbeike.SourceGeneration.Selection;
 using Toarnbeike.Unions.Generator.Analysis;
-using Toarnbeike.Unions.SourceGenerator.ModelFactories;
+using Toarnbeike.Unions.SourceGenerator.Emitters;
 using Toarnbeike.Unions.SourceGenerator.Models;
-using Toarnbeike.Unions.SourceGenerator.Rendering;
+using Toarnbeike.Unions.SourceGenerator.Models.Factories;
 
 namespace Toarnbeike.Unions.SourceGenerator;
 
@@ -49,12 +49,12 @@ public sealed class UnionGenerator : IIncrementalGenerator
 
     private static void Execute(SourceProductionContext context, UnionModel model)
     {
-        context.AddSource($"{model.Name}_Union.g.cs", SourceText.From(CoreGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_Match.g.cs", SourceText.From(MatchGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_Switch.g.cs", SourceText.From(SwitchGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_TestExtensions.g.cs", SourceText.From(TestExtensionsGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_Map.g.cs", SourceText.From(MapGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_Bind.g.cs", SourceText.From(BindGenerator.Execute(model), Encoding.UTF8));
-        context.AddSource($"{model.Name}_CollectionExtensions.g.cs", SourceText.From(CollectionExtensionsGenerator.Execute(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_Union.g.cs", SourceText.From(UnionEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_Match.g.cs", SourceText.From(MatchEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_Switch.g.cs", SourceText.From(SwitchEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_TestExtensions.g.cs", SourceText.From(TestExtensionsEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_Map.g.cs", SourceText.From(MapEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_Bind.g.cs", SourceText.From(BindEmitter.Emit(model), Encoding.UTF8));
+        context.AddSource($"{model.Name}_CollectionExtensions.g.cs", SourceText.From(CollectionExtensionsEmitter.Emit(model), Encoding.UTF8));
     }
 }

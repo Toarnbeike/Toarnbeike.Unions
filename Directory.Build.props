@@ -11,7 +11,7 @@
 	<PropertyGroup>
 		<Company>Toarnbeike</Company>
 		<Authors>Toarnbeike</Authors>
-		<Version>2.0.0-alpha.1</Version>
+		<Version>2.0.0-beta.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<RepositoryUrl>https://github.com/Toarnbeike/Toarnbeike.Unions</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/Toarnbeike/Toarnbeike.Unions</PackageProjectUrl>
